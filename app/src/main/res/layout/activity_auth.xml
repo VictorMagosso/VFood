@@ -24,11 +24,11 @@
         android:textColorHint="#FFFFFF">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editUserName"
+            android:id="@+id/editUserLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/inputAuth"
-            android:hint="Nome"
+            android:hint="E-mail"
             android:padding="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
