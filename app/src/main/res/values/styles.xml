@@ -7,4 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="standardButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/btnHighlight</item>
+        <item name="colorButtonNormal">@color/btnStandard</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
 </resources>
