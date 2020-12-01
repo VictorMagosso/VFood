@@ -3,16 +3,12 @@ package com.victormagosso.vfood.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Switch
-import android.widget.Toast
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
+import android.view.View
+import android.widget.*
+import androidx.core.view.isVisible
 import com.google.firebase.auth.*
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.HomeActivity
-import kotlinx.android.synthetic.main.activity_auth.*
 
 class AuthActivity : AppCompatActivity() {
     private val auth: FirebaseAuth? = null
@@ -20,18 +16,37 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        val userName = findViewById<EditText>(R.id.editUserLogin)
-        val userPassword = findViewById<EditText>(R.id.editUserPassword)
+        val userEmail = findViewById<EditText>(R.id.editUserLogin)
+        val userPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
         val checkAction = findViewById<Switch>(R.id.switchAccess)
         val btnAccess = findViewById<Button>(R.id.btnConcludeAction)
+        val selectCompanyOrPerson = findViewById<RadioGroup>(R.id.selectCompanyOrPerson)
+        val personSelected = findViewById<RadioButton>(R.id.radioPerson)
+        val companySelected = findViewById<RadioButton>(R.id.radioCompany)
+        val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
+        val cpfCnpj = findViewById<EditText>(R.id.editCpfCnpj)
+        val userName = findViewById<EditText>(R.id.editUserName)
 
         btnAccess.setOnClickListener {
-            val email = userName.text.toString()
+            val email = userEmail.text.toString()
             val passowrd = userPassword.text.toString()
 
             if (email.isNotEmpty() || passowrd.isNotEmpty()) {
                 //verificação switch
                 if (checkAction.isChecked) {
+
+                    selectCompanyOrPerson.visibility = View.VISIBLE
+                    repeatPassword.visibility = View.VISIBLE
+                    cpfCnpj.visibility = View.VISIBLE
+                    userName.visibility = View.VISIBLE
+                    if (personSelected.isChecked) {
+                        userName.hint = "Nome completo"
+                        cpfCnpj.hint = "CPF"
+                    } else {
+                        userName.hint = "Nome da empresa"
+                        cpfCnpj.hint = "CNPJ"
+                    }
+
                     auth?.createUserWithEmailAndPassword(email, passowrd)
                         ?.addOnCompleteListener { task ->
                             when {
