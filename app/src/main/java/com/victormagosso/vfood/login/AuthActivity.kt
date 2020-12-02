@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.core.view.isVisible
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.*
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.HomeActivity
@@ -14,18 +14,56 @@ class AuthActivity : AppCompatActivity() {
     private val auth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_auth)
 
         val userEmail = findViewById<EditText>(R.id.editUserLogin)
         val userPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
+        val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
+        val cpfCnpj = findViewById<EditText>(R.id.editCpfCnpj)
+        val userName = findViewById<EditText>(R.id.editUserName)
         val checkAction = findViewById<Switch>(R.id.switchAccess)
         val btnAccess = findViewById<Button>(R.id.btnConcludeAction)
         val selectCompanyOrPerson = findViewById<RadioGroup>(R.id.selectCompanyOrPerson)
         val personSelected = findViewById<RadioButton>(R.id.radioPerson)
         val companySelected = findViewById<RadioButton>(R.id.radioCompany)
-        val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
-        val cpfCnpj = findViewById<EditText>(R.id.editCpfCnpj)
-        val userName = findViewById<EditText>(R.id.editUserName)
+
+
+        checkAction.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                selectCompanyOrPerson.visibility = View.VISIBLE
+                repeatPassword.visibility = View.VISIBLE
+                cpfCnpj.visibility = View.VISIBLE
+                userName.visibility = View.VISIBLE
+            } else {
+                selectCompanyOrPerson.visibility = View.GONE
+                repeatPassword.visibility = View.GONE
+                cpfCnpj.visibility = View.GONE
+                userName.visibility = View.GONE
+            }
+        }
+        selectCompanyOrPerson.setOnCheckedChangeListener { _, isChecked ->
+            if (personSelected.isChecked) {
+                 userName.hint = "Nome completo"
+                 cpfCnpj.hint = "CPF"
+            } else {
+                 userName.hint = "Nome da empresa"
+                 cpfCnpj.hint = "CNPJ"
+          }
+        }
+        if (checkAction.isChecked) {
+            selectCompanyOrPerson.visibility = View.VISIBLE
+            repeatPassword.visibility = View.VISIBLE
+            cpfCnpj.visibility = View.VISIBLE
+            userName.visibility = View.VISIBLE
+            if (personSelected.isChecked) {
+                userName.hint = "Nome completo"
+                cpfCnpj.hint = "CPF"
+            } else {
+                userName.hint = "Nome da empresa"
+                cpfCnpj.hint = "CNPJ"
+            }
+        }
 
         btnAccess.setOnClickListener {
             val email = userEmail.text.toString()
@@ -34,18 +72,6 @@ class AuthActivity : AppCompatActivity() {
             if (email.isNotEmpty() || passowrd.isNotEmpty()) {
                 //verificação switch
                 if (checkAction.isChecked) {
-
-                    selectCompanyOrPerson.visibility = View.VISIBLE
-                    repeatPassword.visibility = View.VISIBLE
-                    cpfCnpj.visibility = View.VISIBLE
-                    userName.visibility = View.VISIBLE
-                    if (personSelected.isChecked) {
-                        userName.hint = "Nome completo"
-                        cpfCnpj.hint = "CPF"
-                    } else {
-                        userName.hint = "Nome da empresa"
-                        cpfCnpj.hint = "CNPJ"
-                    }
 
                     auth?.createUserWithEmailAndPassword(email, passowrd)
                         ?.addOnCompleteListener { task ->
