@@ -1,4 +1,4 @@
-package com.victormagosso.vfood.helper
+package com.victormagosso.vfood.config
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -11,23 +11,19 @@ class FirebaseConfig {
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseStorage: StorageReference? = null
 
-    private fun getUID(): String? {
-        val auth: FirebaseAuth = getFirebaseAuth()
-        return auth.currentUser?.uid
-    }
-    private fun getFirebaseReference(): DatabaseReference {
+    fun getFirebaseDatabase(): DatabaseReference {
          if(firebaseRef == null) {
              firebaseRef = FirebaseDatabase.getInstance().reference
          }
          return firebaseRef as DatabaseReference
     }
-    private fun getFirebaseAuth(): FirebaseAuth {
+    fun getFirebaseAuth(): FirebaseAuth {
         if(firebaseAuth == null) {
             firebaseAuth = FirebaseAuth.getInstance()
         }
         return firebaseAuth as FirebaseAuth
     }
-    private fun getFirebaseStorage(): StorageReference {
+    fun getFirebaseStorage(): StorageReference {
         if(firebaseStorage == null) {
             firebaseStorage = FirebaseStorage.getInstance().reference
         }

@@ -52,7 +52,7 @@
                 android:elevation="4dp"
                 android:gravity="center"
                 android:padding="20dp"
-                android:text="Pessoa Física"
+                android:text="Cliente"
                 android:textColor="@drawable/text_color_radio" />
         </RadioGroup>
 
@@ -76,6 +76,7 @@
             android:layout_marginRight="25dp"
             android:background="@color/inputAuth"
             android:hint="E-mail"
+            android:inputType="textEmailAddress"
             android:padding="18dp" />
 
         <EditText
@@ -87,6 +88,7 @@
             android:layout_marginRight="25dp"
             android:background="@color/inputAuth"
             android:hint="Senha"
+            android:inputType="textPassword|textWebPassword"
             android:padding="18dp" />
 
         <EditText
