@@ -1,8 +1,6 @@
 package com.victormagosso.vfood.model
 
 import com.google.firebase.database.Exclude
-import java.text.SimpleDateFormat
-import java.util.*
 
 class User {
     @get:Exclude

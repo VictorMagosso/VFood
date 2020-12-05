@@ -14,7 +14,7 @@ class UserService {
     fun saveUser(user: User) {
         val firebase: DatabaseReference = firebaseConfig.getFirebaseDatabase()
         firebase.child("users")
-            .child(user.cId.toString())
+            .child(user.cId!!)
             .setValue(user)
     }
 

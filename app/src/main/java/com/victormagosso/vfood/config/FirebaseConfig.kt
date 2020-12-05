@@ -5,11 +5,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.victormagosso.vfood.helper.Base64Custom
 
 class FirebaseConfig {
     private var firebaseRef: DatabaseReference? = null
     private var firebaseAuth: FirebaseAuth? = null
     private var firebaseStorage: StorageReference? = null
+    private var base64Custom = Base64Custom()
 
     fun getFirebaseDatabase(): DatabaseReference {
          if(firebaseRef == null) {
@@ -28,5 +30,11 @@ class FirebaseConfig {
             firebaseStorage = FirebaseStorage.getInstance().reference
         }
         return firebaseStorage as StorageReference
+    }
+    fun getUserRef(): DatabaseReference {
+        var userEmail: String = firebaseAuth?.currentUser!!.email!!
+        var uid: String = base64Custom.encodeToBase64(userEmail).toString()
+        var userRef: DatabaseReference = firebaseRef?.child("users")!!.child(uid);
+        return userRef
     }
 }

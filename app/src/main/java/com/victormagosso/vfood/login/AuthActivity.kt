@@ -1,13 +1,19 @@
 package com.victormagosso.vfood.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.HomeActivity
+import com.victormagosso.vfood.activity.company.CompanyActivity
+import com.victormagosso.vfood.activity.user.UserActivity
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.helper.UserFirebase
@@ -23,6 +29,7 @@ class AuthActivity : AppCompatActivity() {
     var userFirebase = UserFirebase()
     var base64Custom = Base64Custom()
     val userService = UserService()
+    var dashboard = Intent()
     var user = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +37,7 @@ class AuthActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.activity_auth)
 
-        var userType = ""
+        var userType = "C"
         val userEmail = findViewById<EditText>(R.id.editUserLogin)
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
         val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
@@ -41,6 +48,7 @@ class AuthActivity : AppCompatActivity() {
         val selectCompanyOrPerson = findViewById<RadioGroup>(R.id.selectCompanyOrPerson)
         val personSelected = findViewById<RadioButton>(R.id.radioPerson)
         val companySelected = findViewById<RadioButton>(R.id.radioCompany)
+        dashboard = Intent(applicationContext, CompanyActivity::class.java)
 
         auth = firebaseConfig.getFirebaseAuth()
 
@@ -57,15 +65,18 @@ class AuthActivity : AppCompatActivity() {
                 userName.visibility = View.GONE
             }
         }
-        selectCompanyOrPerson.setOnCheckedChangeListener { _, isChecked ->
+        selectCompanyOrPerson.setOnCheckedChangeListener { _, _ ->
             if (personSelected.isChecked) {
                 userName.hint = "Nome completo"
                 userCpfCnpj.hint = "CPF"
                 userType = "U"
-            } else {
+                dashboard = Intent(applicationContext, UserActivity::class.java)
+            }
+            if (companySelected.isChecked){
                 userName.hint = "Nome da empresa"
                 userCpfCnpj.hint = "CNPJ"
                 userType = "C"
+                dashboard = Intent(applicationContext, CompanyActivity::class.java)
             }
         }
         if (checkAction.isChecked) {
@@ -101,8 +112,7 @@ class AuthActivity : AppCompatActivity() {
                                         "Cadastro realizado com sucesso!",
                                         Toast.LENGTH_LONG
                                     ).show()
-                                    val idUser: String =
-                                    base64Custom.encodeToBase64(user.cEmail.toString()).toString()
+                                    var idUser: String = base64Custom.encodeToBase64(email)!!
                                     user.cId = idUser
                                     user.cName = name
                                     user.cEmail = email
@@ -136,6 +146,18 @@ class AuthActivity : AppCompatActivity() {
                         ?.addOnCompleteListener { task ->
                             when {
                                 task.isSuccessful -> {
+                                    firebaseConfig.getUserRef().addListenerForSingleValueEvent(object : ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            user = snapshot.value as User //similar a getValue(User.class)
+                                            userType = user.cType!!
+                                            if (userType.toUpperCase() == "C") dashboard = Intent(applicationContext, CompanyActivity::class.java)
+                                            if (userType.toUpperCase() == "U") dashboard = Intent(applicationContext, UserActivity::class.java)
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            TODO("Not yet implemented")
+                                        }
+                                    })
                                     openMainScreen()
                                 }
                                 else -> {
@@ -159,7 +181,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun openMainScreen() {
-        startActivity(Intent(applicationContext, HomeActivity::class.java))
+       startActivity(dashboard)
     }
 
     private fun isLogged() {
