@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Buscar"
+        android:icon="@drawable/abc_vector_test"
+        android:id="@+id/buscar_menu"/>
+
+    <item android:title="Explorar"
+        android:icon="@drawable/abc_vector_test"
+        android:id="@+id/explorar_menu"/>
+
+    <item android:title="Pedidos"
+        android:icon="@drawable/abc_vector_test"
+        android:id="@+id/pedidos_menu"/>
+
+    <item android:title="Eu"
+        android:icon="@drawable/abc_vector_test"
+        android:id="@+id/eu_menu"/>
+
+</menu>

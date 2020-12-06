@@ -31,6 +31,7 @@ class FirebaseConfig {
         }
         return firebaseStorage as StorageReference
     }
+    //só depois que o usuario ja está logado
     fun getUserRef(): DatabaseReference {
         var userEmail: String = firebaseAuth?.currentUser!!.email!!
         var uid: String = base64Custom.encodeToBase64(userEmail).toString()

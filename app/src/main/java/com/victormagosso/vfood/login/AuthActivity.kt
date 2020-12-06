@@ -29,7 +29,6 @@ class AuthActivity : AppCompatActivity() {
     var userFirebase = UserFirebase()
     var base64Custom = Base64Custom()
     val userService = UserService()
-    var dashboard = Intent()
     var user = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +37,9 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
 
         var userType = "C"
-        val userEmail = findViewById<EditText>(R.id.editUserLogin)
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
         val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
+        val userEmail = findViewById<EditText>(R.id.editUserLogin)
         val userCpfCnpj = findViewById<EditText>(R.id.editCpfCnpj)
         val userName = findViewById<EditText>(R.id.editUserName)
         val checkAction = findViewById<Switch>(R.id.switchAccess)
@@ -48,9 +47,9 @@ class AuthActivity : AppCompatActivity() {
         val selectCompanyOrPerson = findViewById<RadioGroup>(R.id.selectCompanyOrPerson)
         val personSelected = findViewById<RadioButton>(R.id.radioPerson)
         val companySelected = findViewById<RadioButton>(R.id.radioCompany)
-        dashboard = Intent(applicationContext, CompanyActivity::class.java)
 
         auth = firebaseConfig.getFirebaseAuth()
+        verifyLoggedUser()
 
         checkAction.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -70,13 +69,11 @@ class AuthActivity : AppCompatActivity() {
                 userName.hint = "Nome completo"
                 userCpfCnpj.hint = "CPF"
                 userType = "U"
-                dashboard = Intent(applicationContext, UserActivity::class.java)
             }
             if (companySelected.isChecked){
                 userName.hint = "Nome da empresa"
                 userCpfCnpj.hint = "CNPJ"
                 userType = "C"
-                dashboard = Intent(applicationContext, CompanyActivity::class.java)
             }
         }
         if (checkAction.isChecked) {
@@ -120,7 +117,11 @@ class AuthActivity : AppCompatActivity() {
                                     user.dDate = SimpleDateFormat().format(Date())
                                     user.cType = userType
                                     userService.saveUser(user)
-                                    openMainScreen()
+                                    if (userType == "C") {
+                                        startActivity(Intent(applicationContext, CompanyActivity::class.java))
+                                    } else {
+                                        startActivity(Intent(applicationContext, UserActivity::class.java))
+                                    }
                                 }
                                 else -> {
                                     var exception = ""
@@ -146,20 +147,9 @@ class AuthActivity : AppCompatActivity() {
                         ?.addOnCompleteListener { task ->
                             when {
                                 task.isSuccessful -> {
-                                    firebaseConfig.getUserRef().addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(snapshot: DataSnapshot) {
-                                            user = snapshot.value as User //similar a getValue(User.class)
-                                            userType = user.cType!!
-                                            if (userType.toUpperCase() == "C") dashboard = Intent(applicationContext, CompanyActivity::class.java)
-                                            if (userType.toUpperCase() == "U") dashboard = Intent(applicationContext, UserActivity::class.java)
-                                        }
-
-                                        override fun onCancelled(error: DatabaseError) {
-                                            TODO("Not yet implemented")
-                                        }
-                                    })
-                                    openMainScreen()
+                                    verifyUserType(email)
                                 }
+
                                 else -> {
                                     Toast.makeText(
                                         applicationContext,
@@ -178,16 +168,31 @@ class AuthActivity : AppCompatActivity() {
                 ).show()
             }
         }
+//        verifyLoggedUser()
     }
 
-    private fun openMainScreen() {
-       startActivity(dashboard)
-    }
+    private fun verifyUserType(userEmail: String) {
+        val uid = base64Custom.encodeToBase64(userEmail)
+        val ref = firebaseConfig.getFirebaseDatabase()
 
-    private fun isLogged() {
-        var currentUser: FirebaseUser? = auth?.currentUser
-        if (currentUser != null) {
-            openMainScreen()
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var check = snapshot.child("users").child(uid!!).child("ctype").value
+                startActivity(if (check == "C") {
+                    Intent(applicationContext, CompanyActivity::class.java)
+                } else {
+                    Intent(applicationContext, UserActivity::class.java)
+                })
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+    private fun verifyLoggedUser() {
+        if (firebaseConfig.getFirebaseAuth().currentUser != null) {
+            verifyUserType(firebaseConfig.getFirebaseAuth().currentUser!!.email!!)
         }
     }
 }
