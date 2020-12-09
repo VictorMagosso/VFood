@@ -2,6 +2,9 @@ package com.victormagosso.vfood.activity.company
 
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,9 @@ class CompanyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_company)
+        var toolbar: Toolbar = findViewById(R.id.toolbar_company)
+        toolbar.title = "V-Food - Empresa"
+        setSupportActionBar(toolbar)
 
         var bottomNav = findViewById<BottomNavigationView>(R.id.bottom_menu_company)
         supportFragmentManager.beginTransaction().replace(
@@ -30,6 +36,7 @@ class CompanyActivity : AppCompatActivity() {
                 R.id.orders_menu -> selectedFragment = OrderFragment()
                 R.id.profile_menu -> selectedFragment = ProfileFragment()
                 R.id.explore_menu -> selectedFragment = HomeFragment()
+                R.id.analysis_menu -> selectedFragment = AnalysisFragment()
             }
             selectedFragment?.let {
                 supportFragmentManager.beginTransaction()
@@ -37,6 +44,10 @@ class CompanyActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 }
 

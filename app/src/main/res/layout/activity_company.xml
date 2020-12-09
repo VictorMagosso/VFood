@@ -4,27 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.company.CompanyActivity"
-    android:id="@+id/company_container">
-
+    tools:context=".activity.company.CompanyActivity">
     <include
         layout="@layout/toolbar_company"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu_company"
-        app:menu="@menu/bottom_nav"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="?android:attr/windowBackground"/>
+        android:id="@+id/toolbarref"/>
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/company_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_menu_company">
+        android:layout_height="match_parent"
+        tools:context=".activity.company.CompanyActivity"
+        android:layout_below="@id/toolbarref">
 
-    </FrameLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_menu_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:itemBackground="?android:attr/windowBackground"
+            app:menu="@menu/bottom_nav_company" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_menu_company">
+
+        </FrameLayout>
+    </RelativeLayout>
 </RelativeLayout>

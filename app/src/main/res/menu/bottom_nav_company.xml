@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/search_menu"
-        android:icon="@drawable/search"
-        android:title="Buscar" />
-
-    <item
         android:id="@+id/explore_menu"
         android:icon="@drawable/internet"
         android:title="Explorar" />
+
+    <item
+        android:id="@+id/analysis_menu"
+        android:icon="@drawable/sales"
+        android:title="Análise" />
 
     <item
         android:id="@+id/orders_menu"

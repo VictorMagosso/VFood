@@ -1,6 +1,5 @@
 package com.victormagosso.vfood.activity.user
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 
-
-class HomeFragment : Fragment() {
+class AnalysisFragment : Fragment() {
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,6 +20,6 @@ class HomeFragment : Fragment() {
 //            auth.signOut()
 //            activity?.finish()
 //        }
-        return inflater.inflate(com.victormagosso.vfood.R.layout.fragment_home_user, container, false)
+        return inflater.inflate(com.victormagosso.vfood.R.layout.fragment_analysis_user, container, false)
     }
 }

@@ -31,6 +31,7 @@ class UserActivity : AppCompatActivity() {
                 R.id.orders_menu -> selectedFragment = OrderFragment()
                 R.id.profile_menu -> selectedFragment = ProfileFragment()
                 R.id.explore_menu -> selectedFragment = HomeFragment()
+                R.id.analysis_menu -> selectedFragment = AnalysisFragment()
             }
             selectedFragment?.let {
                 supportFragmentManager.beginTransaction()
