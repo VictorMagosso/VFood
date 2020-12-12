@@ -12,6 +12,11 @@
         android:title="Análise" />
 
     <item
+        android:id="@+id/mydishes_menu"
+        android:icon="@drawable/cutlery"
+        android:title="Meus produtos" />
+
+    <item
         android:id="@+id/orders_menu"
         android:icon="@drawable/list"
         android:title="Pedidos" />

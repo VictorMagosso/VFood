@@ -4,18 +4,18 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.UserFirebaseData
-import com.victormagosso.vfood.model.User
+import com.victormagosso.vfood.model.company.Product
 
 
-class UserService {
+class ProductService {
     var firebaseConfig = FirebaseConfig()
     var userFirbaseData = UserFirebaseData()
     private var storageReference: StorageReference? = null
-    fun saveUser(user: User) {
+    fun saveProduct(product: Product) {
         val firebase: DatabaseReference = firebaseConfig.getFirebaseDatabase()
-        firebase.child("users")
-            .child(user.cId!!)
-            .setValue(user)
+        firebase.child("products").child(firebaseConfig.getFirebaseAuth().uid!!)
+            .child(product.cIdProduct!!)
+            .setValue(product)
     }
 
 //    fun saveProfileImg(imgData: ByteArray?) {

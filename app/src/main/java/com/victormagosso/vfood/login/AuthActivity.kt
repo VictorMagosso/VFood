@@ -1,6 +1,5 @@
 package com.victormagosso.vfood.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,14 +10,15 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
-import com.victormagosso.vfood.activity.HomeActivity
 import com.victormagosso.vfood.activity.company.CompanyActivity
 import com.victormagosso.vfood.activity.user.UserActivity
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.helper.UserFirebase
-import com.victormagosso.vfood.model.User
-import com.victormagosso.vfood.service.UserService
+import com.victormagosso.vfood.model.client.Client
+import com.victormagosso.vfood.model.company.Company
+import com.victormagosso.vfood.service.ClientService
+import com.victormagosso.vfood.service.CompanyService
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,10 +26,11 @@ import java.util.*
 class AuthActivity : AppCompatActivity() {
     var auth: FirebaseAuth? = null
     var firebaseConfig = FirebaseConfig()
-    var userFirebase = UserFirebase()
     var base64Custom = Base64Custom()
-    val userService = UserService()
-    var user = User()
+    private val companyService = CompanyService()
+    private val clientService = ClientService()
+    var company = Company()
+    var client = Client()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +68,12 @@ class AuthActivity : AppCompatActivity() {
         selectCompanyOrPerson.setOnCheckedChangeListener { _, _ ->
             if (personSelected.isChecked) {
                 userName.hint = "Nome completo"
-                userCpfCnpj.hint = "CPF"
+                userCpfCnpj.visibility = View.GONE
                 userType = "U"
             }
             if (companySelected.isChecked){
                 userName.hint = "Nome da empresa"
+                userCpfCnpj.visibility = View.VISIBLE
                 userCpfCnpj.hint = "CNPJ"
                 userType = "C"
             }
@@ -109,17 +111,27 @@ class AuthActivity : AppCompatActivity() {
                                         "Cadastro realizado com sucesso!",
                                         Toast.LENGTH_LONG
                                     ).show()
-                                    var idUser: String = base64Custom.encodeToBase64(email)!!
-                                    user.cId = idUser
-                                    user.cName = name
-                                    user.cEmail = email
-                                    user.dDoc = cpfCnpj
-                                    user.dDate = SimpleDateFormat().format(Date())
-                                    user.cType = userType
-                                    userService.saveUser(user)
                                     if (userType == "C") {
+                                        var idCompany: String = base64Custom.encodeToBase64(email)!!
+                                        company.cId = idCompany
+                                        company.cCompanyName = name
+                                        company.cType = userType
+                                        company.cEmail = email
+                                        company.cDocument = cpfCnpj
+                                        company.dDate = SimpleDateFormat().format(Date())
+                                        companyService.saveCompany(company)
+
                                         startActivity(Intent(applicationContext, CompanyActivity::class.java))
                                     } else {
+                                        var idUser: String = base64Custom.encodeToBase64(email)!!
+                                        client.cId = idUser
+                                        client.cClientName = name
+                                        client.cType = userType
+                                        client.cEmail = email
+                                        client.dDate = SimpleDateFormat().format(Date())
+
+                                        clientService.saveClient(client)
+
                                         startActivity(Intent(applicationContext, UserActivity::class.java))
                                     }
                                 }
@@ -177,7 +189,8 @@ class AuthActivity : AppCompatActivity() {
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var check = snapshot.child("users").child(uid!!).child("ctype").value
+//                var check = snapshot.child("users").child(uid!!).child("ctype").value
+                var check = snapshot.child("companies").child(uid!!).child("ctype").value
                 startActivity(if (check == "C") {
                     Intent(applicationContext, CompanyActivity::class.java)
                 } else {

@@ -13,7 +13,7 @@
         android:theme="?attr/actionBarTheme" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnAddDish"
         android:layout_width="33dp"
         android:layout_height="33dp"
         android:layout_gravity="right|center_vertical"
