@@ -64,6 +64,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="25dp"
             android:background="@color/inputAuth"
+            android:inputType="text"
             android:padding="18dp"
             android:visibility="gone" />
 
@@ -100,6 +101,7 @@
             android:layout_marginRight="25dp"
             android:background="@color/inputAuth"
             android:hint="Repita a senha"
+            android:inputType="textPassword"
             android:padding="18dp"
             android:visibility="gone" />
 

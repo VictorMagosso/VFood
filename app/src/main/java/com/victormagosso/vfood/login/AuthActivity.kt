@@ -189,13 +189,14 @@ class AuthActivity : AppCompatActivity() {
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-//                var check = snapshot.child("users").child(uid!!).child("ctype").value
-                var check = snapshot.child("companies").child(uid!!).child("ctype").value
-                startActivity(if (check == "C") {
-                    Intent(applicationContext, CompanyActivity::class.java)
-                } else {
-                    Intent(applicationContext, UserActivity::class.java)
-                })
+                var companyPath = snapshot.child("companies").child(uid!!).child("ctype").value
+                var userPath = snapshot.child("clients").child(uid!!).child("ctype").value
+
+                if (companyPath == "C") startActivity(Intent(applicationContext, CompanyActivity::class.java))
+
+                if (userPath == "U") startActivity(Intent(applicationContext, UserActivity::class.java))
+
+                if (userPath == null) Toast.makeText(applicationContext, "Cadastre-se ou faça login para acessar o app!", Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancelled(error: DatabaseError) {

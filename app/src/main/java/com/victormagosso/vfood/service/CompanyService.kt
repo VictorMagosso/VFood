@@ -17,24 +17,4 @@ class CompanyService {
             .child(company.cId!!)
             .setValue(company)
     }
-
-//    fun saveProfileImg(imgData: ByteArray?) {
-//        //esta dando errado, verificar depois
-//        storageReference = firebaseConfig.getFirebaseStorage()
-//        storageReference!!
-//            .child("images")
-//            .child("profile")
-//            .child(userFirbaseData.getUid().toString())
-//            .child("profileimg.jpeg")
-//        val uploadTask = storageReference!!.putBytes(imgData!!)
-//        uploadTask.addOnFailureListener { println("errado") }
-//            .addOnSuccessListener { println("certo") }
-//    }
-//
-//    fun getProfileImg() {
-//        storageReference = firebaseConfig.getFirebaseStorage()
-//        storageReference!!
-//            .child("images")
-//            .child("profile")
-//    }
 }

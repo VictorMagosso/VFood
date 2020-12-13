@@ -1,13 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/textView5"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgCompany"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/productplaceholder" />
+
+    <ImageView
+        android:id="@+id/changeImg"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/imgCompany"
+        android:layout_alignBottom="@id/imgCompany"
+        app:srcCompat="@drawable/addimg"
+        tools:ignore="VectorDrawableCompat" />
+
+    <EditText
+        android:id="@+id/editCompanyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:layout_below="@id/imgCompany"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-light"
+        android:text="Nome da empresa"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/categoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editCompanyName"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:hint="Categoria (japonesa, árabe, mexicana)"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/categoria"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Tempo estimado para entrega (em minutos)"
+        android:textColor="#919191"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/editMinTime"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView14"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/transparent"
+        android:gravity="right"
+        android:hint="mínimo"
+        android:inputType="number|numberDecimal" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/editMinTime"
+        android:layout_centerHorizontal="true"
+        android:text="-"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/editMaxTime"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView14"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7dp"
+        android:background="@android:color/transparent"
+        android:hint="máximo"
+        android:inputType="number|numberDecimal" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/endereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editMaxTime"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:hint="Endereço comercial"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/endereco"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPhone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:hint="Telefone comercial"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tel"
+        android:layout_marginTop="50dp"
+        android:background="#76CD7A"
+        android:text="Salvar as alterações"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFF" />
+
 </RelativeLayout>

@@ -21,4 +21,8 @@ class Company {
     var cEmail: String? = "";
 
     var cDocument: String? = "";
+
+    var cAddress: String? = "";
+
+    var cPhone: String? = "";
 }
