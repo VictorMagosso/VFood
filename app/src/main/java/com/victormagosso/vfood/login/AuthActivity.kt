@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.CubeGrid
+import com.github.ybq.android.spinkit.style.RotatingPlane
 import com.google.firebase.auth.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,11 +17,11 @@ import com.victormagosso.vfood.activity.company.CompanyActivity
 import com.victormagosso.vfood.activity.user.UserActivity
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
-import com.victormagosso.vfood.helper.UserFirebase
 import com.victormagosso.vfood.model.client.Client
 import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.service.ClientService
 import com.victormagosso.vfood.service.CompanyService
+import kotlinx.android.synthetic.main.activity_auth.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +39,12 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_auth)
+
+        val container = findViewById<RelativeLayout>(R.id.container)
+        val progressBar = findViewById<View>(R.id.progress) as ProgressBar
+        val cubeGrid: Sprite = CubeGrid()
+        progressBar.indeterminateDrawable = cubeGrid
+        container?.visibility = View.GONE
 
         var userType = "C"
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
@@ -71,7 +80,7 @@ class AuthActivity : AppCompatActivity() {
                 userCpfCnpj.visibility = View.GONE
                 userType = "U"
             }
-            if (companySelected.isChecked){
+            if (companySelected.isChecked) {
                 userName.hint = "Nome da empresa"
                 userCpfCnpj.visibility = View.VISIBLE
                 userCpfCnpj.hint = "CNPJ"
@@ -121,7 +130,12 @@ class AuthActivity : AppCompatActivity() {
                                         company.dDate = SimpleDateFormat().format(Date())
                                         companyService.saveCompany(company)
 
-                                        startActivity(Intent(applicationContext, CompanyActivity::class.java))
+                                        startActivity(
+                                            Intent(
+                                                applicationContext,
+                                                CompanyActivity::class.java
+                                            )
+                                        )
                                     } else {
                                         var idUser: String = base64Custom.encodeToBase64(email)!!
                                         client.cId = idUser
@@ -132,7 +146,12 @@ class AuthActivity : AppCompatActivity() {
 
                                         clientService.saveClient(client)
 
-                                        startActivity(Intent(applicationContext, UserActivity::class.java))
+                                        startActivity(
+                                            Intent(
+                                                applicationContext,
+                                                UserActivity::class.java
+                                            )
+                                        )
                                     }
                                 }
                                 else -> {
@@ -180,10 +199,10 @@ class AuthActivity : AppCompatActivity() {
                 ).show()
             }
         }
-//        verifyLoggedUser()
     }
 
     private fun verifyUserType(userEmail: String) {
+        progress.visibility = View.VISIBLE
         val uid = base64Custom.encodeToBase64(userEmail)
         val ref = firebaseConfig.getFirebaseDatabase()
 
@@ -192,11 +211,23 @@ class AuthActivity : AppCompatActivity() {
                 var companyPath = snapshot.child("companies").child(uid!!).child("ctype").value
                 var userPath = snapshot.child("clients").child(uid!!).child("ctype").value
 
-                if (companyPath == "C") startActivity(Intent(applicationContext, CompanyActivity::class.java))
+                if (companyPath == "C") startActivity(
+                    Intent(
+                        applicationContext,
+                        CompanyActivity::class.java
+                    )
+                )
 
-                if (userPath == "U") startActivity(Intent(applicationContext, UserActivity::class.java))
+                if (userPath == "U") startActivity(
+                    Intent(
+                        applicationContext,
+                        UserActivity::class.java
+                    )
+                )
 
-                if (userPath == null) Toast.makeText(applicationContext, "Cadastre-se ou faça login para acessar o app!", Toast.LENGTH_SHORT).show()
+                if (userPath == null && companyPath == null)
+                    container?.visibility = View.VISIBLE
+                    progress.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -204,6 +235,7 @@ class AuthActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun verifyLoggedUser() {
         if (firebaseConfig.getFirebaseAuth().currentUser != null) {
             verifyUserType(firebaseConfig.getFirebaseAuth().currentUser!!.email!!)

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav_company" />
+        app:menu="@menu/bottom_nav_user" />
 
     <FrameLayout
         android:layout_width="match_parent"

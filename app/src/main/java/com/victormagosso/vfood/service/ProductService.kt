@@ -13,7 +13,7 @@ class ProductService {
     private var storageReference: StorageReference? = null
     fun saveProduct(product: Product) {
         val firebase: DatabaseReference = firebaseConfig.getFirebaseDatabase()
-        firebase.child("products").child(firebaseConfig.getFirebaseAuth().uid!!)
+        firebase.child("products").child(userFirbaseData.getUid()!!)
             .child(product.cIdProduct!!)
             .setValue(product)
     }

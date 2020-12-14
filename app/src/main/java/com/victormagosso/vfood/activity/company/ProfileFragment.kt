@@ -192,6 +192,7 @@ class ProfileFragment : Fragment() {
                                     .child("images")
                                     .child("companies")
                                     .child("profile")
+                                    .child(uid!!)
                                     .child("$currentUserUID.jpeg")
 
                                 var upload: UploadTask = imgRef.putBytes(imgData!!)

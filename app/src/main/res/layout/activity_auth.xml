@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,154 +7,172 @@
     android:background="@color/textColor"
     tools:context=".login.AuthActivity">
 
-    <LinearLayout
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress"
+        style="@style/SpinKitView.Large.CubeGrid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="#FFF"
+        android:padding="145dp"
+        app:SpinKit_Color="@color/colorPrimary" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="15dp"
-            app:srcCompat="@drawable/minilogo" />
-
-        <RadioGroup
-            android:id="@+id/selectCompanyOrPerson"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <RadioButton
-                android:id="@+id/radioCompany"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:background="@drawable/radio_selector"
-                android:button="@android:color/transparent"
-                android:checked="true"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Empresa"
-                android:textColor="@drawable/text_color_radio" />
-
-            <RadioButton
-                android:id="@+id/radioPerson"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:background="@drawable/radio_selector"
-                android:button="@android:color/transparent"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Cliente"
-                android:textColor="@drawable/text_color_radio" />
-        </RadioGroup>
-
-        <EditText
-            android:id="@+id/editUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="@color/inputAuth"
-            android:inputType="text"
-            android:padding="18dp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/editUserLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="@color/inputAuth"
-            android:hint="E-mail"
-            android:inputType="textEmailAddress"
-            android:padding="18dp" />
-
-        <EditText
-            android:id="@+id/editUserPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="@color/inputAuth"
-            android:hint="Senha"
-            android:inputType="textPassword|textWebPassword"
-            android:padding="18dp" />
-
-        <EditText
-            android:id="@+id/editUserRepeatPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="@color/inputAuth"
-            android:hint="Repita a senha"
-            android:inputType="textPassword"
-            android:padding="18dp"
-            android:visibility="gone" />
-
-        <EditText
-            android:id="@+id/editCpfCnpj"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="25dp"
-            android:background="@color/inputAuth"
-            android:padding="18dp"
-            android:visibility="gone" />
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="15dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Entrar" />
-
-            <Switch
-                android:id="@+id/switchAccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:checked="true" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cadastre-se" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnConcludeAction"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="Concluir"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:theme="@style/standardButton" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="139dp"
+                android:layout_height="139dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="15dp"
+                app:srcCompat="@drawable/minilogo" />
 
-</ScrollView>
+            <RadioGroup
+                android:id="@+id/selectCompanyOrPerson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/radioCompany"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/radio_selector"
+                    android:button="@android:color/transparent"
+                    android:checked="true"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Empresa"
+                    android:textColor="@drawable/text_color_radio" />
+
+                <RadioButton
+                    android:id="@+id/radioPerson"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/radio_selector"
+                    android:button="@android:color/transparent"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Cliente"
+                    android:textColor="@drawable/text_color_radio" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:inputType="text"
+                android:padding="18dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editUserLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                android:padding="18dp" />
+
+            <EditText
+                android:id="@+id/editUserPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:hint="Senha"
+                android:inputType="textPassword|textWebPassword"
+                android:padding="18dp" />
+
+            <EditText
+                android:id="@+id/editUserRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:hint="Repita a senha"
+                android:inputType="textPassword"
+                android:padding="18dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editCpfCnpj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:padding="18dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Entrar" />
+
+                <Switch
+                    android:id="@+id/switchAccess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:checked="true" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cadastre-se" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnConcludeAction"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Concluir"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:theme="@style/standardButton" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

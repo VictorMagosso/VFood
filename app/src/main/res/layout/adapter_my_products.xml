@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/foodfive" />
+
+        <Button
+            android:id="@+id/btnOptionsProduct"
+            android:layout_width="24dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/menuhamb" />
+
+        <TextView
+            android:id="@+id/textProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/imgProduct"
+            android:fontFamily="sans-serif-medium"
+            android:text="Nome do produto"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textProductName"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/imgProduct"
+            android:fontFamily="sans-serif-light"
+            android:text="R$ 40,90"
+            android:textColor="#4CAF50"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textLastSold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/imgProduct"
+            android:text="Última vez vendida: 25/11/2020"
+            android:textSize="10sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/imgAverage"
+            android:layout_width="170dp"
+            android:layout_height="43dp"
+            android:layout_below="@id/textPrice"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/imgProduct"
+            app:srcCompat="@drawable/fourstar" />
+
+        <TextView
+            android:id="@+id/textQuantitySold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imgAverage"
+            android:layout_alignLeft="@id/imgAverage"
+            android:text="(12)"
+            android:textSize="9sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
