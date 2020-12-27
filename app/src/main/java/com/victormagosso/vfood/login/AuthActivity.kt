@@ -239,6 +239,9 @@ class AuthActivity : AppCompatActivity() {
     private fun verifyLoggedUser() {
         if (firebaseConfig.getFirebaseAuth().currentUser != null) {
             verifyUserType(firebaseConfig.getFirebaseAuth().currentUser!!.email!!)
+        } else {
+            container?.visibility = View.VISIBLE
+            progress.visibility = View.GONE
         }
     }
 }

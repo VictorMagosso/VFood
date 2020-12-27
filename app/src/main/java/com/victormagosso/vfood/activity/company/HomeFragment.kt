@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.victormagosso.vfood.R
-import com.victormagosso.vfood.adapter.AdapterLastAddedDishesMock
-import com.victormagosso.vfood.adapter.AdapterMostSelling
+import com.victormagosso.vfood.adapter.company.AdapterLastAddedDishesMock
+import com.victormagosso.vfood.adapter.company.AdapterMostSelling
 import com.victormagosso.vfood.mockdata.mockmodels.LastAddedDishesMock
 import com.victormagosso.vfood.mockdata.mockmodels.MostSellingMock
 
@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
 //            auth.signOut()
 //            activity?.finish()
 //        }
+//        auth.signOut()
+//        activity?.finish()
         return view
     }
 

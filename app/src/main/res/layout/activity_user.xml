@@ -4,26 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.user.UserActivity"
-    android:id="@+id/user_container">
+    tools:context=".activity.user.UserActivity">
 
     <include
         layout="@layout/toolbar_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu_user"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav_user" />
+        android:id="@+id/toolbarrefuser"/>
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/user_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_menu_user">
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarrefuser"
+        tools:context=".activity.user.UserActivity">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_menu_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:itemBackground="?android:attr/windowBackground"
+            app:menu="@menu/bottom_nav_user">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_menu_user"></FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

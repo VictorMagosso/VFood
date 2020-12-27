@@ -1,4 +1,4 @@
-package com.victormagosso.vfood.adapter
+package com.victormagosso.vfood.adapter.company
 
 import android.view.LayoutInflater
 import android.view.View
