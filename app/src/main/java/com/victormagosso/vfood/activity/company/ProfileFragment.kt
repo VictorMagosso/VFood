@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -36,6 +37,8 @@ import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
 class ProfileFragment : Fragment() {
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     private val GALLERY_SELECTION = 200
     private val storageReference: StorageReference = FirebaseConfig().getFirebaseStorage()
     private val currentUserUID = FirebaseConfig().getFirebaseAuth().currentUser!!.uid
@@ -157,6 +160,14 @@ class ProfileFragment : Fragment() {
                     ).show()
                 }
         }
+
+        var logout = profileView?.findViewById<Button>(R.id.btnLogoutCompany)
+
+        logout?.setOnClickListener {
+            auth.signOut()
+            activity?.finish()
+        }
+
         return profileView
     }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,8 +62,6 @@ class HomeFragment : Fragment() {
         recyclerCategories?.layoutManager = gridLayoutManagerCategory;
         recyclerCategories?.hasFixedSize()
 
-//        auth.signOut()
-
         return view
     }
 
@@ -94,7 +93,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(activity?.applicationContext, "Até Logo!", Toast.LENGTH_SHORT).show()
             }
         })
     }

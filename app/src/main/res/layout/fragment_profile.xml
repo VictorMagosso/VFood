@@ -145,4 +145,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFF" />
 
+    <Button
+        android:id="@+id/btnLogoutCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sair" />
+
 </RelativeLayout>
