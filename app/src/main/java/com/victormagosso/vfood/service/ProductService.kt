@@ -13,28 +13,18 @@ class ProductService {
     private var storageReference: StorageReference? = null
     fun saveProduct(product: Product) {
         val firebase: DatabaseReference = firebaseConfig.getFirebaseDatabase()
-        firebase.child("products").child(userFirbaseData.getUid()!!)
+        firebase
+            .child("products")
+            .child(userFirbaseData.getUid()!!)
             .child(product.cIdProduct!!)
             .setValue(product)
     }
-
-//    fun saveProfileImg(imgData: ByteArray?) {
-//        //esta dando errado, verificar depois
-//        storageReference = firebaseConfig.getFirebaseStorage()
-//        storageReference!!
-//            .child("images")
-//            .child("profile")
-//            .child(userFirbaseData.getUid().toString())
-//            .child("profileimg.jpeg")
-//        val uploadTask = storageReference!!.putBytes(imgData!!)
-//        uploadTask.addOnFailureListener { println("errado") }
-//            .addOnSuccessListener { println("certo") }
-//    }
-//
-//    fun getProfileImg() {
-//        storageReference = firebaseConfig.getFirebaseStorage()
-//        storageReference!!
-//            .child("images")
-//            .child("profile")
-//    }
+    fun deleteProduct(product: Product) {
+        var firebase: DatabaseReference = firebaseConfig.getFirebaseDatabase()
+        firebase
+            .child("products")
+            .child(userFirbaseData.getUid()!!)
+            .child(product.cIdProduct!!)
+            .removeValue()
+    }
 }

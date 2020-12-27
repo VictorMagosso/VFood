@@ -227,7 +227,7 @@ class AuthActivity : AppCompatActivity() {
 
                 if (userPath == null && companyPath == null)
                     container?.visibility = View.VISIBLE
-                    progress.visibility = View.GONE
+                progress.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -1,5 +1,6 @@
 package com.victormagosso.vfood.helper
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
@@ -8,13 +9,13 @@ import android.graphics.RectF
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
+@SuppressLint("ClickableViewAccessibility")
 abstract class SwipeHelper(
     context: Context,
     private val recyclerView: RecyclerView,
@@ -48,7 +49,7 @@ abstract class SwipeHelper(
         if (swipePosition < 0) return@OnTouchListener false
         val point = Point(motionEvent.rawX.toInt(), motionEvent.rawY.toInt())
         val swipeViewHolder = recyclerView.findViewHolderForAdapterPosition(swipePosition)
-        var swipedItem = swipeViewHolder!!.itemView
+        val swipedItem = swipeViewHolder!!.itemView
         val rect = Rect()
         swipedItem.getGlobalVisibleRect(rect)
 
@@ -70,7 +71,7 @@ abstract class SwipeHelper(
     @Synchronized
     private fun recoverSwipeItem() {
         while (!removeQueue.isEmpty()) {
-            val pos = removeQueue.poll().toInt()
+            val pos = removeQueue.poll()!!.toInt()
 
             if (pos > -1)
                 recyclerView.adapter!!.notifyItemChanged(pos)
@@ -132,9 +133,9 @@ abstract class SwipeHelper(
         if (buttonBuffer.containsKey(swipePosition))
             buttonList = buttonBuffer[swipePosition]!!
         else
-            buttonList!!.clear()
+            buttonList.clear()
         buttonBuffer.clear()
-        swipeThreshold = 0.5f * buttonList!!.size.toFloat() * buttonWidth.toFloat()
+        swipeThreshold = 0.5f * buttonList.size.toFloat() * buttonWidth.toFloat()
         recoverSwipeItem()
     }
 
@@ -161,7 +162,7 @@ abstract class SwipeHelper(
     ) {
         val pos = viewHolder.adapterPosition
         var translationX = dX
-        var itemView = viewHolder.itemView
+        val itemView = viewHolder.itemView
         if (pos < 0) {
             swipePosition = pos
             return
