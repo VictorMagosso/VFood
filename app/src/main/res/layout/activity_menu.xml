@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.user.MenuActivity">
+
+    <include
+        android:id="@+id/toolbarrefuser"
+        layout="@layout/toolbar_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/menuContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarrefuser"
+        tools:context=".activity.user.MenuActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardCompany"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            app:cardCornerRadius="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgCompanyMenu"
+                    android:layout_width="70dp"
+                    android:layout_height="89dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/productplaceholder" />
+
+                <TextView
+                    android:id="@+id/txtCompanyNameMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imgCompanyMenu"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Nome da empresa"
+                    android:textColor="#E65100"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtTimeMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="false"
+                    android:text="100 - 130 min."
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/txtCategoryMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtCompanyNameMenu"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="Hambúrguer e Mostarda"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txtEvaluationCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="4,7" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="23dp"
+                    android:layout_height="19dp"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_toLeftOf="@id/txtEvaluationCompany"
+                    android:src="@drawable/favourites" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/cardCompany"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="14dp" />
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="7dp"
+        android:background="#4276C6"
+        android:clickable="true"
+        android:src="@drawable/shopping_cart"
+        app:backgroundTint="#4276C6"
+        app:fabSize="normal" />
+
+</RelativeLayout>

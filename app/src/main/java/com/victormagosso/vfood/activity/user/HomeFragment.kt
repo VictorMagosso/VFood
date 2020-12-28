@@ -1,11 +1,10 @@
 package com.victormagosso.vfood.activity.user
 
-import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,12 +16,11 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.adapter.client.AdapterCategory
 import com.victormagosso.vfood.adapter.client.AdapterCompanies
-import com.victormagosso.vfood.adapter.company.AdapterMyProducts
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.UserFirebaseData
+import com.victormagosso.vfood.listener.RecyclerItemClickListener
 import com.victormagosso.vfood.model.category.Category
 import com.victormagosso.vfood.model.company.Company
-import com.victormagosso.vfood.model.company.Product
 
 
 class HomeFragment : Fragment() {
@@ -42,10 +40,13 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view: View = inflater.inflate(com.victormagosso.vfood.R.layout.fragment_home_user, container, false)
+        var view: View =
+            inflater.inflate(com.victormagosso.vfood.R.layout.fragment_home_user, container, false)
 
-        var recyclerCompanies = view.findViewById<RecyclerView>(com.victormagosso.vfood.R.id.recyclerCompanies)
-        var recyclerCategories = view.findViewById<RecyclerView>(com.victormagosso.vfood.R.id.recyclerCategory)
+        var recyclerCompanies =
+            view.findViewById<RecyclerView>(com.victormagosso.vfood.R.id.recyclerCompanies)
+        var recyclerCategories =
+            view.findViewById<RecyclerView>(com.victormagosso.vfood.R.id.recyclerCategory)
 
         createCompanyList()
 
@@ -58,9 +59,30 @@ class HomeFragment : Fragment() {
         recyclerCompanies?.hasFixedSize()
 
         recyclerCategories?.adapter = adapterCategory
-        val gridLayoutManagerCategory = GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
+        val gridLayoutManagerCategory =
+            GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
         recyclerCategories?.layoutManager = gridLayoutManagerCategory;
         recyclerCategories?.hasFixedSize()
+
+        recyclerCompanies.addOnItemTouchListener(
+            RecyclerItemClickListener(
+                activity?.applicationContext,
+                recyclerCompanies,
+                object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        var selectedCompany: Company = companies[position]
+                        var intent = Intent(activity, MenuActivity::class.java)
+                        intent.putExtra("company", selectedCompany)
+                        startActivity(intent)
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                }
+            )
+        )
 
         return view
     }

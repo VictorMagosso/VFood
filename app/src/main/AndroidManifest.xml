@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.company.AddProductActivity"></activity>
+
+        <activity android:name=".activity.user.MenuActivity"
+            android:parentActivityName=".activity.user.UserActivity"></activity>
+
+        <activity android:name=".activity.company.AddProductActivity" />
         <activity android:name=".activity.user.UserActivity" />
         <activity android:name=".activity.company.CompanyActivity" />
-        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".login.AuthActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".helper.SplashActivity">

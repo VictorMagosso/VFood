@@ -147,7 +147,7 @@ class AddProductActivity : AppCompatActivity() {
                             if (img != null) {
                                 productImg?.setImageBitmap(img)
                                 var baos = ByteArrayOutputStream()
-                                img.compress(Bitmap.CompressFormat.JPEG, 70, baos)
+                                img.compress(Bitmap.CompressFormat.JPEG, 40, baos)
                                 var imgData: ByteArray? = baos.toByteArray()
 
                                 var imgRef: StorageReference = storageReference
