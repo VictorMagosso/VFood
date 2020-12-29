@@ -135,7 +135,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card3"
+                android:id="@+id/cardAddress"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_below="@id/card1"
@@ -202,7 +202,7 @@
                 android:id="@+id/card5"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_below="@id/card3"
+                android:layout_below="@id/cardAddress"
                 android:layout_alignParentRight="false"
                 android:layout_marginBottom="15dp"
                 app:cardCornerRadius="8dp">

@@ -1,21 +1,40 @@
 package com.victormagosso.vfood.activity.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
+import com.victormagosso.vfood.activity.user.address.AddressActivity
 import com.victormagosso.vfood.config.FirebaseConfig
+import com.victormagosso.vfood.helper.Base64Custom
+import com.victormagosso.vfood.model.client.Client
 
 class ProfileFragment : Fragment() {
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    var firebaseConfig = FirebaseConfig()
+    var base64Custom = Base64Custom()
+
+    var txtFullNameUser: TextView? = null
+    var txtEmailUser: TextView? = null
+    var txtAddressSelected: TextView? = null
+
+    var cardOpenAddress: CardView? = null
+
+    var uid = base64Custom.encodeToBase64(firebaseConfig.getFirebaseAuth().currentUser?.email!!)
     var logout: Button? = null
 
     var dbRef = FirebaseConfig().getFirebaseDatabase()
-        .child("companies")
+        .child("clients")
         .child(uid!!)
 
     override fun onCreateView(
@@ -28,10 +47,36 @@ class ProfileFragment : Fragment() {
 
         logout = profileView?.findViewById(R.id.btnLogout)
 
+        txtFullNameUser = profileView?.findViewById(R.id.txtFullNameUser)
+        txtEmailUser = profileView?.findViewById(R.id.txtEmailUser)
+        txtAddressSelected = profileView?.findViewById(R.id.txtAddressSelected)
+
+        cardOpenAddress = profileView?.findViewById(R.id.cardAddress)
+
         logout!!.setOnClickListener {
             auth.signOut()
             activity?.finish()
         }
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.value != null) {
+                    var client: Client = snapshot.getValue(Client::class.java)!!
+                    txtFullNameUser?.text = client.cClientName
+                    txtEmailUser?.text = client.cEmail
+                    txtAddressSelected?.text = "Nenhum endereço cadastrado"
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+        cardOpenAddress?.setOnClickListener { startActivity(Intent(activity, AddressActivity::class.java)) }
+
         return profileView
     }
 }
