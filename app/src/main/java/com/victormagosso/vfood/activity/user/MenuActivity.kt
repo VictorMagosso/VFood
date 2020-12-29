@@ -50,7 +50,7 @@ class MenuActivity : AppCompatActivity() {
         if (bundle != null) {
             selectedCompany = bundle.getSerializable("company") as Company
             nameCompanyMenu?.text = selectedCompany.cCompanyName
-            timeCompanyMenu?.text = selectedCompany.cTime
+            timeCompanyMenu?.text = "${selectedCompany.cTime} min."
             descCompanyMenu?.text = selectedCompany.cCategory
             idCompany = selectedCompany.cId!!
 

@@ -8,10 +8,15 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.victormagosso.vfood.R
+import com.victormagosso.vfood.config.FirebaseConfig
 
 class ProfileFragment : Fragment() {
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
     var logout: Button? = null
+
+    var dbRef = FirebaseConfig().getFirebaseDatabase()
+        .child("companies")
+        .child(uid!!)
 
     override fun onCreateView(
         inflater: LayoutInflater,
