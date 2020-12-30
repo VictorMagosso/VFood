@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.user.address.AddressActivity"></activity>
+        <activity
+            android:name=".activity.user.address.AddressActivity"
+            android:parentActivityName=".activity.user.UserActivity" />
         <activity
             android:name=".activity.user.MenuActivity"
             android:parentActivityName=".activity.user.UserActivity" />
