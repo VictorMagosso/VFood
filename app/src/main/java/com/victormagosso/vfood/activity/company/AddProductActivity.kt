@@ -33,9 +33,6 @@ class AddProductActivity : AppCompatActivity() {
     lateinit var editName: EditText
     var editDescription: EditText? = null
     var editPrice: EditText? = null
-    var txtName: TextView? = null
-    var txtPrice: TextView? = null
-    var txtDescription: TextView? = null
     var btnUploadImg: Button? = null
     var availability: CheckBox? = null
     var productImg: ImageView? = null
@@ -60,10 +57,7 @@ class AddProductActivity : AppCompatActivity() {
         editName = findViewById(R.id.editProductName)
         editDescription = findViewById(R.id.editDescription)
         editPrice = findViewById(R.id.editPrice)
-        txtName = findViewById(R.id.displayPrice)
         btnUploadImg = findViewById(R.id.btnUploadImg)
-        txtDescription = findViewById(R.id.displayDescription)
-        txtName = findViewById(R.id.displayName)
         availability = findViewById(R.id.checkAvailable)
         productImg = findViewById(R.id.imgProduct)
 

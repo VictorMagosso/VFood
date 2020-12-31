@@ -14,10 +14,89 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ExpandableListView
-        android:animateLayoutChanges="true"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listAddress"/>
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:text="Endereço principal"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/cardaddress"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/txtMainAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rua endereço principal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txtMainAddressNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtMainAddress"
+            android:text="nº 232" />
+
+        <TextView
+            android:id="@+id/txtMainAddressState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="São Paulo - RJ" />
+
+        <TextView
+            android:id="@+id/txtMainAddressNeighborhood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtMainAddressNumber"
+            android:text="Vila Vilosa" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/locationicon" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:srcCompat="@drawable/editicon" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:text="Endereços secundários"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="10dp"
+        android:background="#39853F"
+        android:clickable="true"
+        app:backgroundTint="#39853F"
+        app:srcCompat="@drawable/addlocationicon" />
 
 </LinearLayout>

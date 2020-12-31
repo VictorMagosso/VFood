@@ -15,8 +15,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.user.address.AddressActivity
+import com.victormagosso.vfood.activity.user.creditcards.AddCreditCardActivity
+import com.victormagosso.vfood.activity.user.creditcards.CreditCardActivity
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
+import com.victormagosso.vfood.model.client.Address
 import com.victormagosso.vfood.model.client.Client
 
 class ProfileFragment : Fragment() {
@@ -29,6 +32,7 @@ class ProfileFragment : Fragment() {
     var txtAddressSelected: TextView? = null
 
     var cardOpenAddress: CardView? = null
+    var cardOpenCreditCard: CardView? = null
 
     var uid = base64Custom.encodeToBase64(firebaseConfig.getFirebaseAuth().currentUser?.email!!)
     var logout: Button? = null
@@ -36,6 +40,11 @@ class ProfileFragment : Fragment() {
     var dbRef = FirebaseConfig().getFirebaseDatabase()
         .child("clients")
         .child(uid!!)
+
+    var addressRef = FirebaseConfig().getFirebaseDatabase()
+        .child("addresses")
+        .child(uid!!)
+        .child("mainAddresses")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +61,7 @@ class ProfileFragment : Fragment() {
         txtAddressSelected = profileView?.findViewById(R.id.txtAddressSelected)
 
         cardOpenAddress = profileView?.findViewById(R.id.cardAddress)
+        cardOpenCreditCard = profileView?.findViewById(R.id.cardCreditCards)
 
         logout!!.setOnClickListener {
             auth.signOut()
@@ -65,8 +75,6 @@ class ProfileFragment : Fragment() {
                     var client: Client = snapshot.getValue(Client::class.java)!!
                     txtFullNameUser?.text = client.cClientName
                     txtEmailUser?.text = client.cEmail
-                    txtAddressSelected?.text = "Nenhum endereço cadastrado"
-
                 }
             }
 
@@ -75,7 +83,41 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        cardOpenAddress?.setOnClickListener { startActivity(Intent(activity, AddressActivity::class.java)) }
+        addressRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if (snapshot.value != null) {
+                    var address: Address = snapshot.getValue(Address::class.java)!!
+                    if (address.cAddress.isNullOrEmpty()) {
+                        txtAddressSelected?.text = "Nenhum endereço cadastrado"
+                    } else {
+                        txtAddressSelected?.text =
+                            "${address.cAddress}, nº ${address.nNumber}\n${address.cNeighborhood} - ${address.cState}"
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+        cardOpenAddress?.setOnClickListener {
+            startActivity(
+                Intent(
+                    activity,
+                    AddressActivity::class.java
+                )
+            )
+        }
+        cardOpenCreditCard?.setOnClickListener {
+            startActivity(
+                Intent(
+                    activity,
+                    CreditCardActivity::class.java
+                )
+            )
+        }
 
         return profileView
     }

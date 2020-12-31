@@ -33,6 +33,7 @@ class AdapterMenu(
         val product = list!![position]
         var imgUrl = product.cImgUrl
 
+        //só pega a ultima imagem. POR QUE???????
         holder?.let {
             it.name?.text = product.cName
             it.description?.text = product.cDescription

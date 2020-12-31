@@ -1,11 +1,15 @@
 package com.victormagosso.vfood.model.client
 
 class Address {
-    var cIdAddress: String? = "";
+    var cIdAddress: String? = ""
 
-    var cMainAddress: String? = "";
+    var cAddress: String? = ""
 
-    var cSecondaryAddress: String? = "U";
+    var nNumber: Int? = null
 
-    var dDate: String = "";
+    var cState: String? = ""
+
+    var cNeighborhood: String? = ""
+
+    var dDate: String = ""
 }

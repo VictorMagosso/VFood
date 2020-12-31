@@ -10,12 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.user.creditcards.CreditCardActivity"
+            android:parentActivityName=".activity.user.UserActivity"></activity>
+        <activity android:name=".activity.user.creditcards.AddCreditCardActivity" />
+        <activity
             android:name=".activity.user.address.AddressActivity"
             android:parentActivityName=".activity.user.UserActivity" />
         <activity
             android:name=".activity.user.MenuActivity"
             android:parentActivityName=".activity.user.UserActivity" />
-        <activity android:name=".activity.company.AddProductActivity" />
+        <activity
+            android:name=".activity.company.AddProductActivity"
+            android:parentActivityName=".activity.user.creditcards.CreditCardActivity" />
+        <activity android:name=".activity.user.address.AddAddressActivity" />
         <activity android:name=".activity.user.UserActivity" />
         <activity android:name=".activity.company.CompanyActivity" />
         <activity android:name=".login.AuthActivity" />

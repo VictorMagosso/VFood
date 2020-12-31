@@ -61,6 +61,7 @@ class ProfileFragment : Fragment() {
     var uid = base64Custom.encodeToBase64(uEmail!!)
     private var dCreated: String? = ""
     private var cDocument: String? = ""
+
     var dbRef = FirebaseConfig().getFirebaseDatabase()
         .child("companies")
         .child(uid!!)

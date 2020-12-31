@@ -82,7 +82,6 @@ class ProductsFragment : Fragment() {
                 }
             )
         )
-
         return view
     }
 
