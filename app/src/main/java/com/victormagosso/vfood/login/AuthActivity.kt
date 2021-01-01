@@ -12,6 +12,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.santalu.maskara.widget.MaskEditText
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.company.CompanyActivity
 import com.victormagosso.vfood.activity.user.UserActivity
@@ -50,7 +51,8 @@ class AuthActivity : AppCompatActivity() {
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
         val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
         val userEmail = findViewById<EditText>(R.id.editUserLogin)
-        val userCpfCnpj = findViewById<EditText>(R.id.editCpfCnpj)
+        val userCpfCnpj = findViewById<MaskEditText>(R.id.editCpfCnpj)
+        val userTel = findViewById<MaskEditText>(R.id.editUserTel)
         val userName = findViewById<EditText>(R.id.editUserName)
         val checkAction = findViewById<Switch>(R.id.switchAccess)
         val btnAccess = findViewById<Button>(R.id.btnConcludeAction)
@@ -67,22 +69,28 @@ class AuthActivity : AppCompatActivity() {
                 repeatPassword.visibility = View.VISIBLE
                 userCpfCnpj.visibility = View.VISIBLE
                 userName.visibility = View.VISIBLE
+                userName.visibility = View.VISIBLE
+                userTel.visibility = View.VISIBLE
+
             } else {
                 selectCompanyOrPerson.visibility = View.GONE
                 repeatPassword.visibility = View.GONE
                 userCpfCnpj.visibility = View.GONE
                 userName.visibility = View.GONE
+                userTel.visibility = View.GONE
             }
         }
         selectCompanyOrPerson.setOnCheckedChangeListener { _, _ ->
             if (personSelected.isChecked) {
                 userName.hint = "Nome completo"
                 userCpfCnpj.visibility = View.GONE
+                userTel.visibility = View.VISIBLE
                 userType = "U"
             }
             if (companySelected.isChecked) {
                 userName.hint = "Nome da empresa"
                 userCpfCnpj.visibility = View.VISIBLE
+                userTel.visibility = View.GONE
                 userCpfCnpj.hint = "CNPJ"
                 userType = "C"
             }
@@ -94,7 +102,6 @@ class AuthActivity : AppCompatActivity() {
             userName.visibility = View.VISIBLE
             if (personSelected.isChecked) {
                 userName.hint = "Nome completo"
-                userCpfCnpj.hint = "CPF"
             } else {
                 userName.hint = "Nome da empresa"
                 userCpfCnpj.hint = "CNPJ"
@@ -106,6 +113,7 @@ class AuthActivity : AppCompatActivity() {
             val name = userName?.text.toString()
             val passowrd = userPassword?.text.toString()
             val cpfCnpj = userCpfCnpj?.text.toString()
+            val tel = userTel?.text.toString()
 
             if (!email.isNullOrEmpty() || !passowrd.isNullOrEmpty()) {
                 //o ideal é que tenha um campo no banco que permite ver se é empresa ou
@@ -143,6 +151,7 @@ class AuthActivity : AppCompatActivity() {
                                         client.cClientName = name
                                         client.cType = userType
                                         client.cEmail = email
+                                        client.cTelephone = tel
                                         client.dDate = SimpleDateFormat().format(Date())
 
                                         clientService.saveClient(client)

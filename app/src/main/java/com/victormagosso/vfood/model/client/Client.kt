@@ -9,7 +9,7 @@ class Client {
 
     var dDate: String = "";
 
-    var cTime: String = "";
+    var cTelephone: String = "";
 
     var cEmail: String = "";
 }

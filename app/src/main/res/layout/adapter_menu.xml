@@ -69,38 +69,5 @@
             android:textColor="#4BAE53"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/txtCounterQtt"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/button"
-            android:layout_toRightOf="@id/button"
-            android:gravity="center"
-            android:padding="1dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_alignBottom="@id/txtPriceMenu"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@id/txtPriceMenu"
-            android:background="@android:color/transparent"
-            android:text="-"
-            android:textColor="#FF6F00"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_alignBottom="@id/txtPriceMenu"
-            android:layout_toRightOf="@id/txtCounterQtt"
-            android:background="@android:color/transparent"
-            android:text="+"
-            android:textColor="#FF6F00"
-            android:textSize="18sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

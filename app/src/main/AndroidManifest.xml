@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.user.menu.ConfirmFoodActivity"></activity>
         <activity
             android:name=".activity.user.creditcards.CreditCardActivity"
-            android:parentActivityName=".activity.user.UserActivity"></activity>
+            android:parentActivityName=".activity.user.UserActivity" />
         <activity android:name=".activity.user.creditcards.AddCreditCardActivity" />
         <activity
             android:name=".activity.user.address.AddressActivity"
             android:parentActivityName=".activity.user.UserActivity" />
         <activity
-            android:name=".activity.user.MenuActivity"
+            android:name=".activity.user.menu.MenuActivity"
             android:parentActivityName=".activity.user.UserActivity" />
         <activity
             android:name=".activity.company.AddProductActivity"

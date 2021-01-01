@@ -1,4 +1,4 @@
-package com.victormagosso.vfood.activity.user
+package com.victormagosso.vfood.activity.user.menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +19,6 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.squareup.picasso.Picasso
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.adapter.client.AdapterMenu
-import com.victormagosso.vfood.adapter.company.AdapterMyProducts
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.model.company.Product

@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
+import com.blackcat.currencyedittext.CurrencyEditText
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.StorageReference
@@ -32,7 +33,7 @@ class AddProductActivity : AppCompatActivity() {
 
     lateinit var editName: EditText
     var editDescription: EditText? = null
-    var editPrice: EditText? = null
+    var editPrice: CurrencyEditText? = null
     var btnUploadImg: Button? = null
     var availability: CheckBox? = null
     var productImg: ImageView? = null
@@ -83,13 +84,16 @@ class AddProductActivity : AppCompatActivity() {
         var name = editName?.text.toString()
         var description = editDescription?.text.toString()
         var price = editPrice?.text.toString()
+            .replace(",", ".")
+            .replace("[R$ ]".toRegex(), "")
+
         if (!name.isNullOrEmpty()) {
             if (!description.isNullOrEmpty()) {
                 if (!price.isNullOrEmpty()) {
                     product.cIdProduct = name.replace(" ", "+")
                     product.cDescription = description
                     product.cName = name
-                    product.nPrice = price.toDouble()
+                    product.nPrice = price.trim().toDouble()
                     product.cImgUrl = imgUrl
                     product.dDate = SimpleDateFormat().format(Date())
 

@@ -15,19 +15,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
-import com.victormagosso.vfood.activity.user.MenuActivity
 import com.victormagosso.vfood.adapter.client.AdapterAddress
-import com.victormagosso.vfood.adapter.company.AdapterMyProducts
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.UserFirebaseData
 import com.victormagosso.vfood.model.client.Address
-import com.victormagosso.vfood.model.client.Client
-import com.victormagosso.vfood.model.client.MainAddress
-import com.victormagosso.vfood.model.company.Company
-import com.victormagosso.vfood.model.company.Product
-import com.victormagosso.vfood.service.AddressService
-import com.victormagosso.vfood.service.ProductService
-import kotlinx.android.synthetic.main.dialog_addresstype.*
 
 class AddressActivity : AppCompatActivity() {
     var dbRef: DatabaseReference = FirebaseConfig().getFirebaseDatabase()

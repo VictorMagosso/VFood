@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageView6"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="14dp"
                 android:text="Endereço para entregas:"
                 android:textStyle="bold" />
 
@@ -261,6 +261,14 @@
                         android:textColor="#F57F17" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtEmailUser"
+                android:layout_alignLeft="@id/txtEmailUser"
+                android:text="(11) 94456-1234" />
 
         </RelativeLayout>
     </ScrollView>

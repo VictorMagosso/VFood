@@ -16,13 +16,15 @@
         android:layout_gravity="center"
         android:background="#FFF"
         android:padding="145dp"
-        app:SpinKit_Color="@color/colorPrimary" />
+        app:SpinKit_Color="@color/colorPrimary"
+        tools:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,7 +124,7 @@
                 android:padding="18dp"
                 android:visibility="gone" />
 
-            <EditText
+            <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/editCpfCnpj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,7 +133,29 @@
                 android:layout_marginRight="25dp"
                 android:background="@color/inputAuth"
                 android:padding="18dp"
-                android:visibility="gone" />
+                android:inputType="number"
+                app:mask="__.___.___/____-__"
+                app:maskCharacter="_"
+                app:maskStyle="completable"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.santalu.maskara.widget.MaskEditText
+                android:id="@+id/editUserTel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:hint="Tel. para contato"
+                android:inputType="number"
+                app:mask="+55 (__) _____ - ____"
+                app:maskCharacter="_"
+                app:maskStyle="completable"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="25dp"
+                android:background="@color/inputAuth"
+                android:padding="18dp"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

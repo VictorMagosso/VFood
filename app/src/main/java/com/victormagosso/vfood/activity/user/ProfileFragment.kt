@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.user.address.AddressActivity
-import com.victormagosso.vfood.activity.user.creditcards.AddCreditCardActivity
 import com.victormagosso.vfood.activity.user.creditcards.CreditCardActivity
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
@@ -30,6 +29,7 @@ class ProfileFragment : Fragment() {
     var txtFullNameUser: TextView? = null
     var txtEmailUser: TextView? = null
     var txtAddressSelected: TextView? = null
+    var txtTel: TextView? = null
 
     var cardOpenAddress: CardView? = null
     var cardOpenCreditCard: CardView? = null
@@ -59,8 +59,10 @@ class ProfileFragment : Fragment() {
         txtFullNameUser = profileView?.findViewById(R.id.txtFullNameUser)
         txtEmailUser = profileView?.findViewById(R.id.txtEmailUser)
         txtAddressSelected = profileView?.findViewById(R.id.txtAddressSelected)
+        txtTel = profileView?.findViewById(R.id.txtTel)
 
         cardOpenAddress = profileView?.findViewById(R.id.cardAddress)
+
         cardOpenCreditCard = profileView?.findViewById(R.id.cardCreditCards)
 
         logout!!.setOnClickListener {
@@ -75,6 +77,7 @@ class ProfileFragment : Fragment() {
                     var client: Client = snapshot.getValue(Client::class.java)!!
                     txtFullNameUser?.text = client.cClientName
                     txtEmailUser?.text = client.cEmail
+                    txtTel?.text = client.cTelephone
                 }
             }
 
