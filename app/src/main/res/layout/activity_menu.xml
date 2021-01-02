@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activity.user.menu.MenuActivity">
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progressMenu"
+        style="@style/SpinKitView.Large.CubeGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#AB000000"
+        android:padding="145dp"
+        android:translationZ="90dp"
+        app:SpinKit_Color="@color/colorPrimary"
+        app:SpinKit_Style="CubeGrid"
+        tools:visibility="gone" />
+
     <include
         android:id="@+id/toolbarrefuser"
         layout="@layout/toolbar_user"

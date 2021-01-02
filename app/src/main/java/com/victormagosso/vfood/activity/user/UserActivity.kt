@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.victormagosso.vfood.R
+import com.victormagosso.vfood.activity.user.order.OrderFragment
 
 class UserActivity : AppCompatActivity() {
     private var search: MaterialSearchView? = null

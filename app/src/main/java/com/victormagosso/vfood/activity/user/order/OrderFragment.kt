@@ -1,4 +1,4 @@
-package com.victormagosso.vfood.activity.user
+package com.victormagosso.vfood.activity.user.order
 
 import android.os.Bundle
 import android.view.LayoutInflater

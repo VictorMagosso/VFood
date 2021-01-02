@@ -1,8 +1,9 @@
 package com.victormagosso.vfood.model.company
 
 import com.google.firebase.database.Exclude
+import java.io.Serializable
 
-class Product() {
+class Product() : Serializable{
     var cIdProduct: String? = "";
 
     var cName: String? = "";

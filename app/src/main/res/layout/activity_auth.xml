@@ -14,8 +14,9 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:background="#FFF"
+        android:background="#B0000000"
         android:padding="145dp"
+        android:translationZ="90dp"
         app:SpinKit_Color="@color/colorPrimary"
         tools:visibility="gone" />
 
@@ -23,7 +24,6 @@
         android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         tools:visibility="visible">
 
         <LinearLayout
@@ -132,12 +132,12 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="25dp"
                 android:background="@color/inputAuth"
-                android:padding="18dp"
                 android:inputType="number"
+                android:padding="18dp"
+                android:visibility="gone"
                 app:mask="__.___.___/____-__"
                 app:maskCharacter="_"
                 app:maskStyle="completable"
-                android:visibility="gone"
                 tools:visibility="visible" />
 
             <com.santalu.maskara.widget.MaskEditText
@@ -145,16 +145,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:hint="Tel. para contato"
-                android:inputType="number"
-                app:mask="+55 (__) _____ - ____"
-                app:maskCharacter="_"
-                app:maskStyle="completable"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="25dp"
                 android:background="@color/inputAuth"
+                android:hint="Tel. para contato"
+                android:inputType="number"
                 android:padding="18dp"
                 android:visibility="gone"
+                app:mask="+55 (__) _____ - ____"
+                app:maskCharacter="_"
+                app:maskStyle="completable"
                 tools:visibility="visible" />
 
             <LinearLayout

@@ -78,9 +78,8 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        TODO("Not yet implemented")
+                        Toast.makeText(activity, "FAZ NADA AINDA", Toast.LENGTH_SHORT).show()
                     }
-
                 }
             )
         )

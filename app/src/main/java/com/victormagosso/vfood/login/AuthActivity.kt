@@ -45,7 +45,6 @@ class AuthActivity : AppCompatActivity() {
         val progressBar = findViewById<View>(R.id.progress) as ProgressBar
         val cubeGrid: Sprite = CubeGrid()
         progressBar.indeterminateDrawable = cubeGrid
-        container?.visibility = View.GONE
 
         var userType = "C"
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
@@ -119,7 +118,6 @@ class AuthActivity : AppCompatActivity() {
                 //o ideal é que tenha um campo no banco que permite ver se é empresa ou
                 //cliente, o que vai determinar qual View a pessoa vai ver
                 if (checkAction.isChecked) {
-                    container?.visibility = View.GONE
                     auth?.createUserWithEmailAndPassword(email, passowrd)
                         ?.addOnCompleteListener { task ->
                             when {
@@ -165,7 +163,6 @@ class AuthActivity : AppCompatActivity() {
                                     }
                                 }
                                 else -> {
-                                    container?.visibility = View.VISIBLE
                                     var exception = ""
                                     exception = try {
                                         throw task.exception!!
@@ -185,7 +182,6 @@ class AuthActivity : AppCompatActivity() {
                             }
                         }
                 } else {
-                    container?.visibility = View.GONE
                     auth?.signInWithEmailAndPassword(email, passowrd)
                         ?.addOnCompleteListener { task ->
                             when {
@@ -194,7 +190,6 @@ class AuthActivity : AppCompatActivity() {
                                 }
 
                                 else -> {
-                                    container?.visibility = View.VISIBLE
                                     Toast.makeText(
                                         applicationContext,
                                         "E-mail e/ou senha incorretos!",
@@ -239,12 +234,11 @@ class AuthActivity : AppCompatActivity() {
                 )
 
                 if (userPath == null && companyPath == null)
-                    container?.visibility = View.VISIBLE
                 progress.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+               print("error")
             }
         })
     }
@@ -253,7 +247,6 @@ class AuthActivity : AppCompatActivity() {
         if (firebaseConfig.getFirebaseAuth().currentUser != null) {
             verifyUserType(firebaseConfig.getFirebaseAuth().currentUser!!.email!!)
         } else {
-            container?.visibility = View.VISIBLE
             progress.visibility = View.GONE
         }
     }
