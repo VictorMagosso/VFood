@@ -26,4 +26,10 @@ class ItemOrderViewModel(application: Application): AndroidViewModel(application
             repository.addItem(itemOrder)
         }
     }
+
+    fun deleteItem(itemOrder: ItemOrder) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteItem(itemOrder)
+        }
+    }
 }

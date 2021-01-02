@@ -1,10 +1,7 @@
 package com.victormagosso.vfood.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.victormagosso.vfood.model.order.ItemOrder
 
 @Dao
@@ -15,5 +12,6 @@ interface ItemOrderDAO {
     @Query("SELECT * FROM cart_table")
     fun readAllData(): LiveData<List<ItemOrder>>
 
-//    @Query("DELETE FROM cart_table WHERE nIdItemOrder = 0")
+    @Delete
+    suspend fun deleteItem(itemOrder: ItemOrder)
 }

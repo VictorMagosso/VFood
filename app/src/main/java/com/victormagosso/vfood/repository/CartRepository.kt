@@ -10,4 +10,8 @@ class CartRepository(private val itemOrderDao: ItemOrderDAO) {
     suspend fun addItem(itemOrder: ItemOrder) {
         itemOrderDao.addItem(itemOrder)
     }
+
+    suspend fun deleteItem(itemOrder: ItemOrder) {
+        itemOrderDao.deleteItem(itemOrder)
+    }
 }
