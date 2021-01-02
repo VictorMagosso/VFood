@@ -7,10 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.victormagosso.vfood.room.CartDatabase
 import com.victormagosso.vfood.repository.CartRepository
 import com.victormagosso.vfood.model.order.ItemOrder
+import com.victormagosso.vfood.room.RoomDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ItemOrderViewModel(application: Application): AndroidViewModel(application) {
+
+    fun clearAllData() {
+        CartDatabase.clearAllTables()
+    }
 
     val readAllData: LiveData<List<ItemOrder>>
     private val repository: CartRepository

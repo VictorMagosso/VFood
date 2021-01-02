@@ -1,11 +1,9 @@
 package com.victormagosso.vfood.adapter.client
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.model.order.ItemOrder
@@ -27,8 +25,10 @@ class AdapterCart() : RecyclerView.Adapter<AdapterCart.MyViewHolder>() {
 
         holder?.let {
             it.product?.text = cart.cProductName
-            it.quantity?.text = cart.nQuantity.toString()
+            it.quantity?.text = "Quantidade: ${cart.nQuantity}"
             it.price?.text = "R$ ${cart.nTotalPrice.toString().replace(".", ",")}"
+            if (!cart.cObservation.isNullOrEmpty())
+                it.obs?.text = cart.cObservation
         }
     }
 
@@ -40,17 +40,21 @@ class AdapterCart() : RecyclerView.Adapter<AdapterCart.MyViewHolder>() {
         var product: TextView? = null
         var quantity: TextView? = null
         var price: TextView? = null
+        var obs: TextView? = null
 
         init {
             product = itemView.findViewById(R.id.txtProductCartName)
             quantity = itemView.findViewById(R.id.txtProductCartQtt)
             price = itemView.findViewById(R.id.txtProductTotalValue)
+            obs = itemView.findViewById(R.id.txtObservation)
         }
     }
+
     fun setData(item: List<ItemOrder>) {
         this.list = item
         notifyDataSetChanged()
     }
+
     fun getData(): List<ItemOrder> {
         return this.list
     }

@@ -69,13 +69,14 @@
                 android:id="@+id/recyclerCart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="7dp" />
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="15dp" />
 
         </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnConfirmOrder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"

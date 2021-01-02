@@ -31,6 +31,7 @@ class ConfirmFoodActivity : AppCompatActivity() {
     var txtPrice: TextView? = null
     var editObs: EditText? = null
     var addToCart: CardView? = null
+    var companyName: String? = ""
 
     var decFormat = DecimalFormat("#.##")
     var priceFormatted: Double? = 0.0
@@ -130,7 +131,7 @@ class ConfirmFoodActivity : AppCompatActivity() {
                     .replace("[R$ ]".toRegex(), "")
                     .trim()
                     .toDouble(),
-                editObs?.text.toString()
+                editObs?.text.toString(),
             )
             itemOrderViewModel.addItem(item)
             Toast.makeText(this, "Adicionado ao carrinho", Toast.LENGTH_SHORT).show()

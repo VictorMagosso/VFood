@@ -7,16 +7,23 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.user.order.OrderFragment
+import com.victormagosso.vfood.viewmodel.ItemOrderViewModel
 
 class UserActivity : AppCompatActivity() {
     private var search: MaterialSearchView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
+
+//        var viewModel: ItemOrderViewModel =
+//            ViewModelProvider(this).get(ItemOrderViewModel::class.java)
+//        viewModel.clearAllData()
+
         var toolbar: Toolbar = findViewById(R.id.toolbar_user)
         toolbar.title = "V-Food"
         setSupportActionBar(toolbar)
@@ -44,7 +51,7 @@ class UserActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater: MenuInflater = menuInflater
-            inflater.inflate(R.menu.menu_user, menu)
+        inflater.inflate(R.menu.menu_user, menu)
 
         var item: MenuItem = menu!!.findItem(R.id.search)
         search!!.setMenuItem(item)
@@ -54,4 +61,5 @@ class UserActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
+
 }

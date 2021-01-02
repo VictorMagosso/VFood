@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,9 +20,18 @@ class CartActivity : AppCompatActivity() {
     private lateinit var itemOrderViewModel: ItemOrderViewModel
     var adapterCart = AdapterCart()
 
+    var confirmOrder: Button? = null
+
+    var orderPrice: Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+
+        var toolbar: Toolbar = findViewById(R.id.toolbar_user)
+        toolbar.title = "Meu pedido"
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         var dialog = Dialog(this@CartActivity!!)
         dialog.setCancelable(true)
@@ -29,6 +39,8 @@ class CartActivity : AppCompatActivity() {
             this@CartActivity.layoutInflater.inflate(R.layout.dialog_confirm, null, false)
 
         var recyclerCart = findViewById<RecyclerView>(R.id.recyclerCart)
+
+        confirmOrder = findViewById(R.id.btnConfirmOrder)
 
         recyclerCart?.adapter = adapterCart
         val gridLayoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
@@ -38,6 +50,8 @@ class CartActivity : AppCompatActivity() {
         itemOrderViewModel = ViewModelProvider(this).get(ItemOrderViewModel::class.java)
         itemOrderViewModel.readAllData.observe(this, Observer { item ->
             adapterCart.setData(item)
+            orderPrice = item.sumByDouble { it.nTotalPrice!! }
+            confirmOrder?.text = "CONFIRMAR - ${orderPrice}"
 
             recyclerCart.addOnItemTouchListener(
                 RecyclerItemClickListener(
@@ -49,17 +63,20 @@ class CartActivity : AppCompatActivity() {
                         }
 
                         override fun onLongItemClick(view: View?, position: Int) {
-
                             dialog.setContentView(viewDialog)
-
-                            var btnConfirm: Button = viewDialog.findViewById(R.id.btnConfirmExclude);
+                            var btnConfirm: Button =
+                                viewDialog.findViewById(R.id.btnConfirmExclude);
                             var btnCancel: Button = viewDialog.findViewById(R.id.btnCancelExclude);
 
                             btnConfirm.setOnClickListener {
                                 var selectedItem = adapterCart.getData()[position]
                                 itemOrderViewModel.deleteItem(selectedItem)
 
-                                Toast.makeText(this@CartActivity, "Item removido com sucesso", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    this@CartActivity,
+                                    "Item removido",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                                 adapterCart.notifyDataSetChanged()
                                 dialog.dismiss()
@@ -73,5 +90,8 @@ class CartActivity : AppCompatActivity() {
                 )
             )
         })
+        confirmOrder?.setOnClickListener {
+
+        }
     }
 }
