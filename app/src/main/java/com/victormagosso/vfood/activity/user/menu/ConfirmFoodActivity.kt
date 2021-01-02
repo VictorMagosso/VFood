@@ -1,6 +1,5 @@
 package com.victormagosso.vfood.activity.user.menu
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,18 +11,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.user.order.CartActivity
-import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.model.company.Product
 import com.victormagosso.vfood.model.order.ItemOrder
+import com.victormagosso.vfood.viewmodel.ItemOrderViewModel
 import java.text.DecimalFormat
-import kotlin.math.roundToLong
 
 class ConfirmFoodActivity : AppCompatActivity() {
     var selectedProduct = Product()
     var orderItems: ArrayList<ItemOrder> = arrayListOf()
+    private lateinit var itemOrderViewModel: ItemOrderViewModel
 
     var imgSelectedProduct: ImageView? = null
     var txtProduct: TextView? = null
@@ -43,6 +43,8 @@ class ConfirmFoodActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_confirm_food)
+
+        itemOrderViewModel = ViewModelProvider(this).get(ItemOrderViewModel::class.java)
 
         var toolbar: Toolbar = findViewById(R.id.toolbar_user)
         toolbar.title = "Fazer pedido"
@@ -117,23 +119,22 @@ class ConfirmFoodActivity : AppCompatActivity() {
         }
 
         addToCart?.setOnClickListener {
-            var item = ItemOrder()
-            item.cIdProduto = selectedProduct.cIdProduct!!
-            item.cProductName = selectedProduct.cName!!
-            item.nQuantity = qttChosen?.text.toString().toInt()
-            item.nTotalPrice = totalOrderPrice?.text
-                .toString()
-                .replace(",", ".")
-                .replace("[R$ ]".toRegex(), "")
-                .trim()
-                .toDouble()
-            item.cObservation = editObs?.text.toString()
-
-            orderItems.add(item)
-
-            var intent = Intent(applicationContext, CartActivity::class.java)
-            intent.putParcelableArrayListExtra("cartitems", orderItems)
-            startActivity(intent)
+            var item = ItemOrder(
+                0,
+                selectedProduct.cIdProduct!!,
+                selectedProduct.cName!!,
+                qttChosen?.text.toString().toInt(),
+                totalOrderPrice?.text!!
+                    .toString()
+                    .replace(",", ".")
+                    .replace("[R$ ]".toRegex(), "")
+                    .trim()
+                    .toDouble(),
+                editObs?.text.toString()
+            )
+            itemOrderViewModel.addItem(item)
+            Toast.makeText(this, "Adicionado ao carrinho", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CartActivity::class.java))
         }
     }
 }

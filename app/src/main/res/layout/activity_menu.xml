@@ -132,7 +132,7 @@
         android:layout_marginBottom="7dp"
         android:background="#4276C6"
         android:clickable="true"
-        android:src="@drawable/shopping_cart"
+        app:srcCompat="@drawable/shopping_cart"
         app:backgroundTint="#4276C6"
         app:fabSize="normal" />
 

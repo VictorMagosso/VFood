@@ -1,26 +1,18 @@
 package com.victormagosso.vfood.adapter.client
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 import com.victormagosso.vfood.R
-import com.victormagosso.vfood.model.category.Category
-import com.victormagosso.vfood.model.company.Company
-import com.victormagosso.vfood.model.company.Product
 import com.victormagosso.vfood.model.order.ItemOrder
 
-class AdapterCart(
-    private val list: List<ItemOrder>?
-) :
-    RecyclerView.Adapter<AdapterCart.MyViewHolder>() {
+class AdapterCart() : RecyclerView.Adapter<AdapterCart.MyViewHolder>() {
+
+    private var list = emptyList<ItemOrder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -54,6 +46,13 @@ class AdapterCart(
             quantity = itemView.findViewById(R.id.txtProductCartQtt)
             price = itemView.findViewById(R.id.txtProductTotalValue)
         }
+    }
+    fun setData(item: List<ItemOrder>) {
+        this.list = item
+        notifyDataSetChanged()
+    }
+    fun getData(): List<ItemOrder> {
+        return this.list
     }
 
 }
