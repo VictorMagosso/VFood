@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
+import com.santalu.maskara.widget.MaskEditText
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
@@ -27,10 +28,11 @@ class AddCreditCardActivity : AppCompatActivity() {
     var txtCardNumber: TextView? = null
     var txtCardName: TextView? = null
     var txtCardValid: TextView? = null
+    var txtCardType: TextView? = null
 
-    var editCardNumber: EditText? = null
+    var editCardNumber: MaskEditText? = null
     var editCardName: EditText? = null
-    var editCardValid: EditText? = null
+    var editCardValid: MaskEditText? = null
 
     var btnConfirmCard: Button? = null
 
@@ -48,6 +50,7 @@ class AddCreditCardActivity : AppCompatActivity() {
         txtCardNumber = findViewById(R.id.txtCardNumber)
         txtCardName = findViewById(R.id.txtCardName)
         txtCardValid = findViewById(R.id.txtCardValid)
+        txtCardType = findViewById(R.id.txtCardType)
 
         editCardNumber = findViewById(R.id.editCardNumber)
         editCardName = findViewById(R.id.editCardName)
@@ -64,6 +67,13 @@ class AddCreditCardActivity : AppCompatActivity() {
                 if (p0?.length == 0) txtCardNumber?.text = ""
 
                 txtCardNumber?.text = editCardNumber?.text
+
+                when (editCardNumber?.text?.toString()?.take(1)) {
+                    "4" -> txtCardType?.text = "VISA"
+                    "5" -> txtCardType?.text = "MASTERCARD"
+                    "_" -> txtCardType?.text = txtCardType?.text
+                    else -> txtCardType?.text = ""
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -121,7 +131,7 @@ class AddCreditCardActivity : AppCompatActivity() {
                 card.cCardValid = cardValid
                 card.cIdCard = "CARTAO-${uid}${cardNumber.takeLast(4)}"
                 card.dDate = SimpleDateFormat().format(Date())
-                card.cType = "Cartão de Crédito"
+                card.cType = txtCardType?.text.toString()
 
                 cardService.saveCard(card)
                 startActivity(Intent(this, CreditCardActivity::class.java))

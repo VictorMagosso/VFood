@@ -12,9 +12,16 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import com.victormagosso.vfood.R
-import com.victormagosso.vfood.activity.user.order.CartActivity
+import com.victormagosso.vfood.activity.user.CartFragment
+import com.victormagosso.vfood.activity.user.UserActivity
+import com.victormagosso.vfood.config.FirebaseConfig
+import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.model.company.Product
 import com.victormagosso.vfood.model.order.ItemOrder
 import com.victormagosso.vfood.viewmodel.ItemOrderViewModel
@@ -22,8 +29,12 @@ import java.text.DecimalFormat
 
 class ConfirmFoodActivity : AppCompatActivity() {
     var selectedProduct = Product()
+    var selectedCompany = Company()
     var orderItems: ArrayList<ItemOrder> = arrayListOf()
     private lateinit var itemOrderViewModel: ItemOrderViewModel
+
+    var companiesRef = FirebaseConfig().getFirebaseDatabase()
+        .child("companies")
 
     var imgSelectedProduct: ImageView? = null
     var txtProduct: TextView? = null
@@ -69,6 +80,7 @@ class ConfirmFoodActivity : AppCompatActivity() {
         var bundle: Bundle = intent.extras!!
         if (bundle != null) {
             selectedProduct = bundle.getSerializable("product") as Product
+            selectedCompany = bundle.getSerializable("company_details") as Company
 
             txtProduct?.text = selectedProduct.cName
             txtDesc?.text = selectedProduct.cDescription
@@ -91,14 +103,14 @@ class ConfirmFoodActivity : AppCompatActivity() {
                 .show()
         }
 
-        qttChosen?.addTextChangedListener(object : TextWatcher{
+        qttChosen?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 print("nothing")
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 qttChosenInt = qttChosen?.text.toString().toInt()
-                totalOrderPrice?.text = "R$ ${selectedProduct.nPrice!!*qttChosenInt}"
+                totalOrderPrice?.text = "R$ ${selectedProduct.nPrice!! * qttChosenInt}"
                     .replace(".", ",")
 
 
@@ -116,7 +128,7 @@ class ConfirmFoodActivity : AppCompatActivity() {
 
         removeQtt?.setOnClickListener {
             if (qttChosenInt > 1)
-            qttChosen?.text = (qttChosenInt - 1).toString()
+                qttChosen?.text = (qttChosenInt - 1).toString()
         }
 
         addToCart?.setOnClickListener {
@@ -135,7 +147,9 @@ class ConfirmFoodActivity : AppCompatActivity() {
             )
             itemOrderViewModel.addItem(item)
             Toast.makeText(this, "Adicionado ao carrinho", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, CartActivity::class.java))
+            var intent = Intent(applicationContext, UserActivity::class.java)
+            intent.putExtra("company_selected_order", selectedCompany)
+            startActivity(intent)
         }
     }
 }

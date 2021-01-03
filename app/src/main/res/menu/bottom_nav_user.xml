@@ -7,9 +7,9 @@
         android:title="Explorar" />
 
     <item
-        android:id="@+id/analysis_menu"
-        android:icon="@drawable/money"
-        android:title="Análise" />
+        android:id="@+id/cart_menu"
+        android:icon="@drawable/cartmenu"
+        android:title="Meu carrinho" />
 
     <item
         android:id="@+id/orders_menu"

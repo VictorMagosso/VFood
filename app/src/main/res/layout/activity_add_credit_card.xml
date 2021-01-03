@@ -54,7 +54,7 @@
             android:layout_alignLeft="@id/txtCardName"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/baumans"
-            android:text="DD/AAAA"
+            android:text="MM/AAAA"
             android:textColor="#fff" />
 
         <ImageView
@@ -66,6 +66,21 @@
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             app:srcCompat="@drawable/minilogo" />
+
+        <TextView
+            android:id="@+id/txtCardType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView12"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <TextView
@@ -78,7 +93,7 @@
         app:layout_constraintStart_toStartOf="@+id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/editCardNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -86,7 +101,10 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/bginput"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
+        app:mask="____ ____ ____ ____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
         app:layout_constraintStart_toStartOf="@+id/textView28"
@@ -128,12 +146,16 @@
         app:layout_constraintStart_toStartOf="@+id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@+id/editCardName" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/editCardValid"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bginput"
         android:ems="10"
+        android:hint="MM/AAAA"
+        app:mask="__/____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
         android:inputType="textPersonName"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="@+id/textView29"

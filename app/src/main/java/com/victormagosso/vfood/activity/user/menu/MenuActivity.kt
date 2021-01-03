@@ -120,6 +120,7 @@ class MenuActivity : AppCompatActivity() {
                         var selectedProduct: Product = products[position]
                         var intent = Intent(applicationContext, ConfirmFoodActivity::class.java)
                         intent.putExtra("product", selectedProduct)
+                        intent.putExtra("company_details", selectedCompany)
                         startActivity(intent)
                     }
 

@@ -7,12 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.activity.user.order.OrderFragment
-import com.victormagosso.vfood.viewmodel.ItemOrderViewModel
 
 class UserActivity : AppCompatActivity() {
     private var search: MaterialSearchView? = null
@@ -39,7 +37,7 @@ class UserActivity : AppCompatActivity() {
                 R.id.orders_menu -> selectedFragment = OrderFragment()
                 R.id.profile_menu -> selectedFragment = ProfileFragment()
                 R.id.explore_menu -> selectedFragment = HomeFragment()
-                R.id.analysis_menu -> selectedFragment = AnalysisFragment()
+                R.id.cart_menu -> selectedFragment = CartFragment()
             }
             selectedFragment?.let {
                 supportFragmentManager.beginTransaction()
