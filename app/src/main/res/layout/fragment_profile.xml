@@ -123,13 +123,16 @@
         android:layout_marginTop="25dp"
         android:background="@android:color/transparent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.santalu.maskara.widget.MaskEditText
             android:id="@+id/editPhone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@android:color/transparent"
             android:gravity="center_horizontal"
+            app:mask="+55 (__) _____ - ____"
+            app:maskCharacter="_"
+            app:maskStyle="completable"
             android:hint="Telefone comercial"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -149,6 +152,10 @@
         android:id="@+id/btnLogoutCompany"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sair" />
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:text="Sair"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="12sp" />
 
 </RelativeLayout>
