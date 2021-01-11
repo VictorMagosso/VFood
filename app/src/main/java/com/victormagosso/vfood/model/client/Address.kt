@@ -5,6 +5,10 @@ class Address {
 
     var cAddress: String? = ""
 
+    var cCep: String? = ""
+
+    var cComplement: String? = ""
+
     var nNumber: Int? = null
 
     var cState: String? = ""

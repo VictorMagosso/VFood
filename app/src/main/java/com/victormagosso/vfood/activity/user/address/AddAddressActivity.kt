@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -15,20 +17,28 @@ import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.client.Address
 import com.victormagosso.vfood.model.client.MainAddress
+import com.victormagosso.vfood.repository.CepRepository
 import com.victormagosso.vfood.service.AddressService
 import com.victormagosso.vfood.service.ProductService
+import com.victormagosso.vfood.viewmodel.CepViewModel
+import com.victormagosso.vfood.viewmodel.factory.CepViewModelFactory
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.lifecycle.Observer
 
 class AddAddressActivity : AppCompatActivity() {
+    private lateinit var viewModel: CepViewModel
 
+    var editCep: EditText? = null
     var editStreetName: EditText? = null
     var editNumber: EditText? = null
     var editState: EditText? = null
     var editNeighborhood: EditText? = null
+    var editHomeReference: EditText? = null
+
     private var controlAddressType: String = ""
     private var dCreated: String? = ""
 
@@ -46,10 +56,12 @@ class AddAddressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_address)
 
+        editCep = findViewById(R.id.editCep)
         editStreetName = findViewById(R.id.editStreetName)
         editNumber = findViewById(R.id.editNumber)
         editState = findViewById(R.id.editCityState)
         editNeighborhood = findViewById(R.id.editNeighborhood)
+        editHomeReference = findViewById(R.id.editHomeReference)
 
         var bundle: Bundle = intent.extras!!
         if (bundle != null) {
@@ -62,11 +74,53 @@ class AddAddressActivity : AppCompatActivity() {
             .child(uid!!)
             .child("mainAddresses")
 
+        editCep?.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                println("msg")
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val repository = CepRepository()
+                val viewModelFactory = CepViewModelFactory(repository)
+                viewModel = ViewModelProvider(this@AddAddressActivity, viewModelFactory).get(CepViewModel::class.java)
+                viewModel.getAddress(editCep?.text.toString().replace("-", ""))
+                viewModel.myResponse.observe(this@AddAddressActivity, Observer{res ->
+                    print("Retorno api " + res)
+                    try {
+                        if (res.isSuccessful)
+                            editStreetName?.text =
+                                Editable.Factory.getInstance().newEditable(res.body()?.logradouro)
+                        editNeighborhood?.text = Editable.Factory.getInstance()
+                            .newEditable(res.body()?.bairro)
+                        editState?.text =
+                            Editable.Factory.getInstance().newEditable("${res.body()?.localidade} - ${res.body()?.uf}")
+                        editNumber?.hint = "Número"
+                        editHomeReference?.hint = "Complemento"
+                    } catch (e: Exception){
+                        e.printStackTrace()
+                        editStreetName?.text =
+                            Editable.Factory.getInstance().newEditable("")
+                        editNeighborhood?.text = Editable.Factory.getInstance()
+                            .newEditable("")
+                        editState?.text =
+                            Editable.Factory.getInstance().newEditable("")
+                    }
+                })
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                print("msg")
+            }
+
+        })
+
         mainAddressRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value != null) {
                     if (controlAddressType == "main") {
                         var address: Address = snapshot.getValue(Address::class.java)!!
+                        editCep?.text =
+                            Editable.Factory.getInstance().newEditable(address.cCep)
                         editStreetName?.text =
                             Editable.Factory.getInstance().newEditable(address.cAddress)
                         editNeighborhood?.text = Editable.Factory.getInstance()
@@ -75,13 +129,15 @@ class AddAddressActivity : AppCompatActivity() {
                             .newEditable(address.nNumber.toString())
                         editState?.text =
                             Editable.Factory.getInstance().newEditable(address.cState)
+                        editHomeReference?.text =
+                            Editable.Factory.getInstance().newEditable(address.cComplement)
                         dCreated = address.dDate
                     }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                print("nada faz")
             }
         })
 //
