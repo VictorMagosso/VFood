@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/textColor"
     tools:context=".login.AuthActivity">
 
     <com.github.ybq.android.spinkit.SpinKitView
@@ -31,13 +30,33 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="139dp"
-                android:layout_height="139dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="15dp"
-                app:srcCompat="@drawable/minilogo" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="139dp"
+                    android:layout_height="139dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="15dp"
+                    app:srcCompat="@drawable/minilogo" />
+
+                <Button
+                    android:id="@+id/btnSignInGoogle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/imageView2"
+                    android:layout_toRightOf="@id/imageView2"
+                    android:background="@drawable/bginput"
+                    android:drawableStart="@drawable/googleg_standard_color_18"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Entrar com Google"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </RelativeLayout>
 
             <RadioGroup
                 android:id="@+id/selectCompanyOrPerson"
