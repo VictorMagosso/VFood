@@ -41,11 +41,17 @@ class AuthActivity : AppCompatActivity() {
     private val clientService = ClientService()
     var company = Company()
     var client = Client()
+    var userType = "C"
 
     var gso: GoogleSignInOptions =
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
+
+    private lateinit var userName: EditText
+    private lateinit var userCpfCnpj: MaskEditText
+    private lateinit var userTel: MaskEditText
+    private lateinit var btnAccess: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,15 +63,14 @@ class AuthActivity : AppCompatActivity() {
         val cubeGrid: Sprite = CubeGrid()
         progressBar.indeterminateDrawable = cubeGrid
 
-        var userType = "C"
         val userPassword = findViewById<EditText>(R.id.editUserPassword)
         val repeatPassword = findViewById<EditText>(R.id.editUserRepeatPassword)
         val userEmail = findViewById<EditText>(R.id.editUserLogin)
-        val userCpfCnpj = findViewById<MaskEditText>(R.id.editCpfCnpj)
-        val userTel = findViewById<MaskEditText>(R.id.editUserTel)
-        val userName = findViewById<EditText>(R.id.editUserName)
+        userCpfCnpj = findViewById(R.id.editCpfCnpj)
+        userTel = findViewById(R.id.editUserTel)
+        userName = findViewById(R.id.editUserName)
         val checkAction = findViewById<Switch>(R.id.switchAccess)
-        val btnAccess = findViewById<Button>(R.id.btnConcludeAction)
+        btnAccess = findViewById(R.id.btnConcludeAction)
         val btnSignInWithGoogle = findViewById<Button>(R.id.btnSignInGoogle)
         val selectCompanyOrPerson = findViewById<RadioGroup>(R.id.selectCompanyOrPerson)
         val personSelected = findViewById<RadioButton>(R.id.radioPerson)
@@ -75,6 +80,9 @@ class AuthActivity : AppCompatActivity() {
         createRequest()
 
         btnSignInWithGoogle?.setOnClickListener {
+            userPassword.visibility = View.GONE
+            repeatPassword.visibility = View.GONE
+            userEmail.visibility = View.GONE
             signIn()
         }
 
@@ -130,100 +138,106 @@ class AuthActivity : AppCompatActivity() {
             val email = userEmail?.text.toString()
             val name = userName?.text.toString()
             val passowrd = userPassword?.text.toString()
+            val repeatPassowrd = repeatPassword?.text.toString()
             val cpfCnpj = userCpfCnpj?.text.toString()
             val tel = userTel?.text.toString()
 
-            if (!email.isNullOrEmpty() || !passowrd.isNullOrEmpty()) {
-                //o ideal é que tenha um campo no banco que permite ver se é empresa ou
-                //cliente, o que vai determinar qual View a pessoa vai ver
-                if (checkAction.isChecked) {
-                    auth?.createUserWithEmailAndPassword(email, passowrd)
-                        ?.addOnCompleteListener { task ->
-                            when {
-                                task.isSuccessful -> {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "Cadastro realizado com sucesso!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                    if (userType == "C") {
-                                        var idCompany: String = base64Custom.encodeToBase64(email)!!
-                                        company.cId = idCompany
-                                        company.cCompanyName = name
-                                        company.cType = userType
-                                        company.cEmail = email
-                                        company.cDocument = cpfCnpj
-                                        company.dDate = SimpleDateFormat().format(Date())
-                                        companyService.saveCompany(company)
+            if (userPassword.visibility == View.VISIBLE) {
+                if (!email.isNullOrEmpty() ||
+                    !passowrd.isNullOrEmpty() ||
+                    repeatPassowrd != passowrd
+                ) {
+                    if (checkAction.isChecked) {
+                        auth?.createUserWithEmailAndPassword(email, passowrd)
+                            ?.addOnCompleteListener { task ->
+                                when {
+                                    task.isSuccessful -> {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Cadastro realizado com sucesso!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        if (userType == "C") {
+                                            var idCompany: String =
+                                                base64Custom.encodeToBase64(email)!!
+                                            company.cId = idCompany
+                                            company.cCompanyName = name
+                                            company.cType = userType
+                                            company.cEmail = email
+                                            company.cDocument = cpfCnpj
+                                            company.dDate = SimpleDateFormat().format(Date())
+                                            companyService.saveCompany(company)
 
-                                        startActivity(
-                                            Intent(
-                                                applicationContext,
-                                                CompanyActivity::class.java
+                                            startActivity(
+                                                Intent(
+                                                    applicationContext,
+                                                    CompanyActivity::class.java
+                                                )
                                             )
-                                        )
-                                    } else {
-                                        var idUser: String = base64Custom.encodeToBase64(email)!!
-                                        client.cId = idUser
-                                        client.cClientName = name
-                                        client.cType = userType
-                                        client.cEmail = email
-                                        client.cTelephone = tel
-                                        client.dDate = SimpleDateFormat().format(Date())
+                                        } else {
+                                            var idUser: String =
+                                                base64Custom.encodeToBase64(email)!!
+                                            client.cId = idUser
+                                            client.cClientName = name
+                                            client.cType = userType
+                                            client.cEmail = email
+                                            client.cTelephone = tel
+                                            client.dDate = SimpleDateFormat().format(Date())
 
-                                        clientService.saveClient(client)
+                                            clientService.saveClient(client)
 
-                                        startActivity(
-                                            Intent(
-                                                applicationContext,
-                                                UserActivity::class.java
+                                            startActivity(
+                                                Intent(
+                                                    applicationContext,
+                                                    UserActivity::class.java
+                                                )
                                             )
-                                        )
+                                        }
                                     }
-                                }
-                                else -> {
-                                    var exception = ""
-                                    exception = try {
-                                        throw task.exception!!
-                                    } catch (e: FirebaseAuthWeakPasswordException) {
-                                        "Por favor, escolha uma senha mais forte!"
-                                    } catch (e: FirebaseAuthInvalidCredentialsException) {
-                                        "Por favor, digite um e-mail válido!"
-                                    } catch (e: FirebaseAuthUserCollisionException) {
-                                        "Esse usuário já está cadastrado."
+                                    else -> {
+                                        var exception = ""
+                                        exception = try {
+                                            throw task.exception!!
+                                        } catch (e: FirebaseAuthWeakPasswordException) {
+                                            "Por favor, escolha uma senha mais forte!"
+                                        } catch (e: FirebaseAuthInvalidCredentialsException) {
+                                            "Por favor, digite um e-mail válido!"
+                                        } catch (e: FirebaseAuthUserCollisionException) {
+                                            "Esse usuário já está cadastrado."
+                                        }
+                                        Toast.makeText(
+                                            applicationContext,
+                                            exception,
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
-                                    Toast.makeText(
-                                        applicationContext,
-                                        exception,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
                                 }
                             }
-                        }
+                    } else {
+                        auth?.signInWithEmailAndPassword(email, passowrd)
+                            ?.addOnCompleteListener { task ->
+                                when {
+                                    task.isSuccessful -> {
+                                        verifyUserType(email)
+                                    }
+
+                                    else -> {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "E-mail e/ou senha incorretos!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            }
+                    }
                 } else {
-                    auth?.signInWithEmailAndPassword(email, passowrd)
-                        ?.addOnCompleteListener { task ->
-                            when {
-                                task.isSuccessful -> {
-                                    verifyUserType(email)
-                                }
-
-                                else -> {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "E-mail e/ou senha incorretos!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-                            }
-                        }
+                    Toast.makeText(
+                        applicationContext,
+                        "Preencha os campos corretamente!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "Preencha os campos corretamente!",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
     }
@@ -231,10 +245,10 @@ class AuthActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        var user: FirebaseUser = auth?.currentUser!!
-        if(user!=null) {
-            Toast.makeText(this,"Tem alguem logad", Toast.LENGTH_SHORT).show()
-        }
+//        var user: FirebaseUser = auth?.currentUser!!
+//        if(user!=null) {
+//            Toast.makeText(this,"Tem alguem logad", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun verifyUserType(userEmail: String) {
@@ -293,6 +307,7 @@ class AuthActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+//        startActivity(Intent(this, GoogleAuthActivity::class.java))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -314,14 +329,81 @@ class AuthActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+
         auth?.signInWithCredential(credential)
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Deu certo", Toast.LENGTH_SHORT).show()
-                    val user = auth?.currentUser
+                    var email = firebaseConfig.getFirebaseAuth().currentUser?.email!!
+                    Toast.makeText(
+                        applicationContext,
+                        "Autenticação com o google: $email",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    btnAccess.setOnClickListener {
+
+                        val name = userName?.text.toString()
+                        val cpfCnpj = userCpfCnpj?.text.toString()
+                        val tel = userTel?.text.toString()
+
+                        if (userType == "C") {
+                            if (!userName.toString().isNullOrEmpty() ||
+                                !userCpfCnpj.toString().isNullOrEmpty()
+                            ) {
+                                var idCompany: String =
+                                    base64Custom.encodeToBase64(email)!!
+                                company.cId = idCompany
+                                company.cCompanyName = name
+                                company.cType = userType
+                                company.cEmail = email
+                                company.cDocument = cpfCnpj
+                                company.dDate = SimpleDateFormat().format(Date())
+                                companyService.saveCompany(company)
+
+                                startActivity(
+                                    Intent(
+                                        applicationContext,
+                                        CompanyActivity::class.java
+                                    )
+                                )
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Bem-vindo ${name.takeWhile { x -> !x.isWhitespace() }} !",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        } else {
+                            if (!userName.toString().isNullOrEmpty() ||
+                                !userTel.toString().isNullOrEmpty()
+                            ) {
+                                var idUser: String =
+                                    base64Custom.encodeToBase64(email)!!
+                                client.cId = idUser
+                                client.cClientName = name
+                                client.cType = userType
+                                client.cEmail = email
+                                client.cTelephone = tel
+                                client.dDate = SimpleDateFormat().format(Date())
+
+                                clientService.saveClient(client)
+
+                                startActivity(
+                                    Intent(
+                                        applicationContext,
+                                        UserActivity::class.java
+                                    )
+                                )
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Bem-vindo ${name.takeWhile { x -> !x.isWhitespace() }} !",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
-                    Snackbar.make(View(this), "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(View(this), "Authentication Failed.", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.AuthActivity">
+    tools:context=".login.GoogleAuthActivity">
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/progress"
@@ -43,20 +43,6 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="15dp"
                     app:srcCompat="@drawable/minilogo" />
-
-                <Button
-                    android:id="@+id/btnSignInGoogle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView2"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/bgsigningoogle"
-                    android:drawableStart="@drawable/googleg_standard_color_18"
-                    android:drawablePadding="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="Entrar com Google"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             </RelativeLayout>
 
@@ -119,31 +105,6 @@
                 android:hint="E-mail"
                 android:inputType="textEmailAddress"
                 android:padding="18dp" />
-
-            <EditText
-                android:id="@+id/editUserPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
-                android:background="@color/inputAuth"
-                android:hint="Senha"
-                android:inputType="textPassword|textWebPassword"
-                android:padding="18dp" />
-
-            <EditText
-                android:id="@+id/editUserRepeatPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="25dp"
-                android:background="@color/inputAuth"
-                android:hint="Repita a senha"
-                android:inputType="textPassword"
-                android:padding="18dp"
-                android:visibility="gone" />
 
             <com.santalu.maskara.widget.MaskEditText
                 android:id="@+id/editCpfCnpj"
