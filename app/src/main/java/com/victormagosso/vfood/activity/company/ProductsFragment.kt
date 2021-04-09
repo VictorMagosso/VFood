@@ -20,7 +20,7 @@ import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.*
 import com.victormagosso.vfood.listener.RecyclerItemClickListener
 import com.victormagosso.vfood.model.company.Product
-import com.victormagosso.vfood.service.ProductService
+import com.victormagosso.vfood.repository.ProductRepository
 
 
 class ProductsFragment : Fragment() {
@@ -28,7 +28,7 @@ class ProductsFragment : Fragment() {
     var userFirebase = UserFirebaseData()
     var products: MutableList<Product> = mutableListOf()
     var adapterMyProducts = AdapterMyProducts(products)
-    var productService = ProductService()
+    var productRepository = ProductRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +66,7 @@ class ProductsFragment : Fragment() {
 
                         btnConfirm.setOnClickListener {
                             var selectedProduct: Product = products[position]
-                            productService.deleteProduct(selectedProduct)
+                            productRepository.deleteProduct(selectedProduct)
                             Toast.makeText(activity, "Excluído com sucesso", Toast.LENGTH_SHORT)
                                 .show()
                             adapterMyProducts.notifyDataSetChanged()

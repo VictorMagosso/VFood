@@ -29,7 +29,6 @@ import com.victormagosso.vfood.model.client.CreditCard
 import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.model.order.ItemOrder
 import com.victormagosso.vfood.model.order.Order
-import com.victormagosso.vfood.service.OrderService
 import com.victormagosso.vfood.viewmodel.ItemOrderViewModel
 import kotlin.math.absoluteValue
 

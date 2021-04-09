@@ -24,8 +24,8 @@ import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.client.Client
 import com.victormagosso.vfood.model.company.Company
-import com.victormagosso.vfood.service.ClientService
-import com.victormagosso.vfood.service.CompanyService
+import com.victormagosso.vfood.repository.ClientRepository
+import com.victormagosso.vfood.repository.CompanyRepository
 import kotlinx.android.synthetic.main.activity_auth.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,8 +37,8 @@ class AuthActivity : AppCompatActivity() {
     var auth: FirebaseAuth? = null
     var firebaseConfig = FirebaseConfig()
     var base64Custom = Base64Custom()
-    private val companyService = CompanyService()
-    private val clientService = ClientService()
+    private val companyRepository = CompanyRepository()
+    private val clientRepository = ClientRepository()
     var company = Company()
     var client = Client()
     var userType = "C"
@@ -166,7 +166,7 @@ class AuthActivity : AppCompatActivity() {
                                             company.cEmail = email
                                             company.cDocument = cpfCnpj
                                             company.dDate = SimpleDateFormat().format(Date())
-                                            companyService.saveCompany(company)
+                                            companyRepository.saveCompany(company)
 
                                             startActivity(
                                                 Intent(
@@ -184,7 +184,7 @@ class AuthActivity : AppCompatActivity() {
                                             client.cTelephone = tel
                                             client.dDate = SimpleDateFormat().format(Date())
 
-                                            clientService.saveClient(client)
+                                            clientRepository.saveClient(client)
 
                                             startActivity(
                                                 Intent(
@@ -357,7 +357,7 @@ class AuthActivity : AppCompatActivity() {
                                 company.cEmail = email
                                 company.cDocument = cpfCnpj
                                 company.dDate = SimpleDateFormat().format(Date())
-                                companyService.saveCompany(company)
+                                companyRepository.saveCompany(company)
 
                                 startActivity(
                                     Intent(
@@ -384,7 +384,7 @@ class AuthActivity : AppCompatActivity() {
                                 client.cTelephone = tel
                                 client.dDate = SimpleDateFormat().format(Date())
 
-                                clientService.saveClient(client)
+                                clientRepository.saveClient(client)
 
                                 startActivity(
                                     Intent(

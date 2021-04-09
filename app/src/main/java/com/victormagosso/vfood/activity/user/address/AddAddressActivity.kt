@@ -16,18 +16,15 @@ import com.victormagosso.vfood.R
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.client.Address
-import com.victormagosso.vfood.model.client.MainAddress
 import com.victormagosso.vfood.repository.CepRepository
-import com.victormagosso.vfood.service.AddressService
-import com.victormagosso.vfood.service.ProductService
 import com.victormagosso.vfood.viewmodel.CepViewModel
 import com.victormagosso.vfood.viewmodel.factory.CepViewModelFactory
 import kotlinx.android.synthetic.main.fragment_profile.*
-import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.Observer
+import com.victormagosso.vfood.repository.AddressRepository
 
 class AddAddressActivity : AppCompatActivity() {
     private lateinit var viewModel: CepViewModel
@@ -50,7 +47,7 @@ class AddAddressActivity : AppCompatActivity() {
     private var address = Address()
     var dbRef = FirebaseConfig().getFirebaseDatabase()
 
-    private val addressService = AddressService()
+    private val addressRepository = AddressRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,7 +162,7 @@ class AddAddressActivity : AppCompatActivity() {
             address.nNumber = number.toInt()
             address.dDate = dCreated.toString()
 
-            addressService.saveMainAddress(address)
+            addressRepository.saveMainAddress(address)
 
             Toast.makeText(this?.applicationContext, "Endereço atualizado com sucesso!", Toast.LENGTH_SHORT).show()
 
@@ -195,8 +192,8 @@ class AddAddressActivity : AppCompatActivity() {
                         address.dDate = SimpleDateFormat().format(Date())
 
                         when (controlAddressType) {
-                            "secondary" -> addressService.saveSecondaryAddress(address)
-                            "main" -> addressService.saveMainAddress(address)
+                            "secondary" -> addressRepository.saveSecondaryAddress(address)
+                            "main" -> addressRepository.saveMainAddress(address)
                         }
 
                         Toast.makeText(applicationContext, "Endereço salvo", Toast.LENGTH_SHORT)

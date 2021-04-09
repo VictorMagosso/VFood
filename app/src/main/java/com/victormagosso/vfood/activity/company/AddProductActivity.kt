@@ -3,7 +3,6 @@ package com.victormagosso.vfood.activity.company
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.media.Image
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -11,19 +10,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
-import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.addTextChangedListener
 import com.blackcat.currencyedittext.CurrencyEditText
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import com.google.type.DateTime
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.company.Product
-import com.victormagosso.vfood.service.ProductService
+import com.victormagosso.vfood.repository.ProductRepository
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -50,7 +46,7 @@ class AddProductActivity : AppCompatActivity() {
     var dbRef = FirebaseConfig().getFirebaseDatabase()
         .child("products")
         .child(uid!!)
-    private val productService = ProductService()
+    private val productRepository = ProductRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +98,7 @@ class AddProductActivity : AppCompatActivity() {
                     }
 
                     product.bAvailable = status
-                    productService.saveProduct(product)
+                    productRepository.saveProduct(product)
                     Toast.makeText(applicationContext, "Produto adicionado com sucesso", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(applicationContext, CompanyActivity::class.java))
                     finish()

@@ -1,15 +1,15 @@
-package com.victormagosso.vfood.service
+package com.victormagosso.vfood.repository
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.UserFirebaseData
 import com.victormagosso.vfood.model.client.Address
-import com.victormagosso.vfood.model.client.MainAddress
+import com.victormagosso.vfood.model.client.Client
+import com.victormagosso.vfood.model.company.Company
 import com.victormagosso.vfood.model.company.Product
 
-
-class AddressService {
+class AddressRepository {
     var firebaseConfig = FirebaseConfig()
     var userFirbaseData = UserFirebaseData()
     private var storageReference: StorageReference? = null

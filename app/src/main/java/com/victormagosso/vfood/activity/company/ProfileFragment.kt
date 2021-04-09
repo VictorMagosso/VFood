@@ -25,13 +25,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import com.google.type.DateTime
 import com.squareup.picasso.Picasso
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.company.Company
-import com.victormagosso.vfood.service.CompanyService
+import com.victormagosso.vfood.repository.CompanyRepository
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
@@ -43,7 +42,7 @@ class ProfileFragment : Fragment() {
     private val storageReference: StorageReference = FirebaseConfig().getFirebaseStorage()
     private val currentUserUID = FirebaseConfig().getFirebaseAuth().currentUser!!.uid
     var company = Company()
-    private val companyService = CompanyService()
+    private val companyRepository = CompanyRepository()
     private var imgUrl = ""
 
     var editCompanyName: EditText? = null
@@ -149,7 +148,7 @@ class ProfileFragment : Fragment() {
                     company.dDate = dCreated
                     company.cDocument = cDocument
                     company.cCompanyImg = imgUrl
-                    companyService.saveCompany(company)
+                    companyRepository.saveCompany(company)
 
                     Toast.makeText(activity?.applicationContext, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
 

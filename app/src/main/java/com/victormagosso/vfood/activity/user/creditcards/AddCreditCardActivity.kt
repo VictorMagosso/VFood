@@ -10,13 +10,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.addTextChangedListener
 import com.santalu.maskara.widget.MaskEditText
 import com.victormagosso.vfood.R
 import com.victormagosso.vfood.config.FirebaseConfig
 import com.victormagosso.vfood.helper.Base64Custom
 import com.victormagosso.vfood.model.client.CreditCard
-import com.victormagosso.vfood.service.CreditCardService
+import com.victormagosso.vfood.repository.CreditCardService
 import java.text.SimpleDateFormat
 import java.util.*
 
