@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".login.fragment.CreateAccountFragment">
+
+    <ImageView
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/minilogo" />
+
+    <Button
+        android:id="@+id/btnSignInGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bgsigningoogle"
+        android:drawableStart="@drawable/googleg_standard_color_18"
+        android:drawableLeft="@drawable/googleg_standard_color_18"
+        android:drawablePadding="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Entrar com Google"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <RadioGroup
+        android:id="@+id/selectCompanyOrPerson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioCompany"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Empresa"
+            android:textColor="@drawable/text_color_radio" />
+
+        <RadioButton
+            android:id="@+id/radioPerson"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:background="@drawable/radio_selector"
+            android:button="@android:color/transparent"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Cliente"
+            android:textColor="@drawable/text_color_radio" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:inputType="text"
+        android:padding="18dp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editUserLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:padding="18dp" />
+
+    <EditText
+        android:id="@+id/editUserPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="Senha"
+        android:inputType="textPassword|textWebPassword"
+        android:padding="18dp" />
+
+    <EditText
+        android:id="@+id/editUserRepeatPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="Repita a senha"
+        android:inputType="textPassword"
+        android:padding="18dp"
+        android:visibility="gone" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/editCpfCnpj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:inputType="number"
+        android:padding="18dp"
+        android:visibility="gone"
+        app:mask="__.___.___/____-__"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        tools:visibility="visible" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/editUserTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="Tel. para contato"
+        android:inputType="number"
+        android:padding="18dp"
+        android:visibility="gone"
+        app:mask="+55 (__) _____ - ____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        tools:visibility="visible" />
+    <Button
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:text="Criar conta"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:theme="@style/standardButton" />
+    <Button
+        android:id="@+id/btnGoLogin"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Já sou cadastrado"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:theme="@style/standardButton" />
+</LinearLayout>

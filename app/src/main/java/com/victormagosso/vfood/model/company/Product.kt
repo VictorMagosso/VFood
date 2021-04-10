@@ -3,20 +3,20 @@ package com.victormagosso.vfood.model.company
 import com.google.firebase.database.Exclude
 import java.io.Serializable
 
-class Product() : Serializable{
-    var cIdProduct: String? = "";
+class Product(
+    var cIdProduct: String? = "",
 
-    var cName: String? = "";
+    var cName: String? = "",
 
-    var cDescription: String? = "";
+    var cDescription: String? = "",
 
-    var nPrice: Double? = 0.0;
+    var nPrice: Double? = 0.0,
 
-    var cImgUrl: String? = "";
+    var cImgUrl: String? = "",
 
-    var dDate: String? = "";
+    var dDate: String? = "",
 
-    var cTimeSold: Int = 0
+    var cTimeSold: Int = 0,
 
-    var bAvailable: Boolean? = true;
-}
+    var bAvailable: Boolean? = true,
+) : Serializable

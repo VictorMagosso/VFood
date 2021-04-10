@@ -136,15 +136,15 @@ class AuthActivity : AppCompatActivity() {
 
         btnAccess.setOnClickListener {
             val email = userEmail?.text.toString()
-            val name = userName?.text.toString()
+            val name = userName.text.toString()
             val passowrd = userPassword?.text.toString()
             val repeatPassowrd = repeatPassword?.text.toString()
-            val cpfCnpj = userCpfCnpj?.text.toString()
-            val tel = userTel?.text.toString()
+            val cpfCnpj = userCpfCnpj.text.toString()
+            val tel = userTel.text.toString()
 
             if (userPassword.visibility == View.VISIBLE) {
-                if (!email.isNullOrEmpty() ||
-                    !passowrd.isNullOrEmpty() ||
+                if (email.isNotEmpty() ||
+                    passowrd.isNotEmpty() ||
                     repeatPassowrd != passowrd
                 ) {
                     if (checkAction.isChecked) {
@@ -252,7 +252,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun verifyUserType(userEmail: String) {
-        progress.visibility = View.VISIBLE
+//        progress.visibility = View.VISIBLE
         val uid = base64Custom.encodeToBase64(userEmail)
         val ref = firebaseConfig.getFirebaseDatabase()
 
@@ -275,8 +275,8 @@ class AuthActivity : AppCompatActivity() {
                     )
                 )
 
-                if (userPath == null && companyPath == null)
-                    progress.visibility = View.GONE
+//                if (userPath == null && companyPath == null)
+//                    progress.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -289,7 +289,7 @@ class AuthActivity : AppCompatActivity() {
         if (firebaseConfig.getFirebaseAuth().currentUser != null) {
             verifyUserType(firebaseConfig.getFirebaseAuth().currentUser!!.email!!)
         } else {
-            progress.visibility = View.GONE
+//            progress.visibility = View.GONE
         }
     }
 

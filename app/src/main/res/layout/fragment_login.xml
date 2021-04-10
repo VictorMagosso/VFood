@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".login.fragment.LoginFragment">
+
+    <ImageView
+        app:srcCompat="@drawable/minilogo"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_gravity="center"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp" />
+
+    <Button
+        android:id="@+id/btnSignInGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bgsigningoogle"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/googleg_standard_color_18"
+        android:drawablePadding="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Entrar com Google"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:drawableLeft="@drawable/googleg_standard_color_18" />
+
+    <EditText
+        android:id="@+id/editUserLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:padding="18dp" />
+
+    <EditText
+        android:id="@+id/editUserPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:background="@color/inputAuth"
+        android:hint="Senha"
+        android:inputType="textPassword|textWebPassword"
+        android:padding="18dp" />
+    <Button
+        android:id="@+id/btnConcludeAction"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Concluir"
+        android:layout_marginTop="45dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:theme="@style/standardButton" />
+    <Button
+        android:id="@+id/btnAlreadySignedIn"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Já tenho uma conta"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:theme="@style/Widget.AppCompat.Button" />
+    <TextView
+        android:id="@+id/txtForgotPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Esqueci minha senha"
+        android:gravity="center"/>
+</LinearLayout>
