@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.victormagosso.vfood.model.client.Client
 import com.victormagosso.vfood.repository.ClientRepository
-
-import com.victormagosso.vfood.repository.CompanyRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,6 +61,12 @@ class ClientViewModel(private val repository: ClientRepository): ViewModel() {
         }
     }
 
+    fun firebaseAuthWithGoogle(idToken: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            repository.firebaseAuthWithGoogle(idToken)
+        }
+    }
+
     fun getUserData(email: String, name: String): Client {
         return Client(name, email)
     }
@@ -90,5 +94,4 @@ class ClientViewModel(private val repository: ClientRepository): ViewModel() {
     fun deleteAccount() {
         repository.deleteAccount()
     }
-}
 }

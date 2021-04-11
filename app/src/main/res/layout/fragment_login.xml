@@ -54,8 +54,16 @@
         android:hint="Senha"
         android:inputType="textPassword|textWebPassword"
         android:padding="18dp" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progressLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorPrimaryDark"
+        style="@style/SpinKitView.Large.Pulse"/>
     <Button
-        android:id="@+id/btnConcludeAction"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Concluir"

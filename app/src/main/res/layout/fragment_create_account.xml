@@ -49,8 +49,8 @@
             android:checked="true"
             android:elevation="4dp"
             android:gravity="center"
-            android:padding="20dp"
             android:text="Empresa"
+            android:padding="8dp"
             android:textColor="@drawable/text_color_radio" />
 
         <RadioButton
@@ -62,7 +62,7 @@
             android:button="@android:color/transparent"
             android:elevation="4dp"
             android:gravity="center"
-            android:padding="20dp"
+            android:padding="8dp"
             android:text="Cliente"
             android:textColor="@drawable/text_color_radio" />
     </RadioGroup>
@@ -76,8 +76,7 @@
         android:layout_marginRight="25dp"
         android:background="@color/inputAuth"
         android:inputType="text"
-        android:padding="18dp"
-        android:visibility="gone" />
+        android:padding="18dp" />
 
     <EditText
         android:id="@+id/editUserLogin"
@@ -113,8 +112,7 @@
         android:background="@color/inputAuth"
         android:hint="Repita a senha"
         android:inputType="textPassword"
-        android:padding="18dp"
-        android:visibility="gone" />
+        android:padding="18dp" />
 
     <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/editCpfCnpj"
